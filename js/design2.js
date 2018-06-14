@@ -36,10 +36,144 @@ function draw() {
             return "#107FC9";
           if (d.meanMale == d.meanFemale)
             return "grey"
-          return "#CB5B7C";     
+          return "#CB5B7C";
        })
        .style("fill-opacity", 1);
 };*/
+
+function barchart() {
+
+  // console.log("in barChart")
+
+  //https://medium.freecodecamp.org/how-to-create-your-first-bar-chart-with-d3-js-a0e8ea2df386
+  console.log("in barChart")
+  var svgWidth = 100;
+  var svgHeight = 100;
+
+  //var dataset1 = [80, 100, 56, 120, 180, 30, 40, 120, 160];
+  var dataset1 = [10,20,30,40,50,60]; //,30,40,50,60];
+  var barPadding = 5;
+  var barWidth = (svgWidth / dataset1.length);
+
+  var barChart = d3.select("#comparison")
+      .data(dataset1)
+      .enter()
+      .append("svg")
+      .append("rect")
+      .style("fill","MidnightBlue")
+      .attr("y",10)
+      .attr("x",10)
+      //.attr("y", function(d) {
+      //    return svgHeight - d
+      //})
+      //.attr("height", function(d) {
+      //    return d;
+      //})
+      .attr("height", 100)
+      .attr("width", 10);
+      //.text(function(d) { return d; });
+
+      //.attr("width", barWidth - barPadding);
+      //.attr("transform", function (d, i) {
+      //     var translate = [barWidth * i, 0];
+      //     return "translate("+ translate +")";
+      //});
+
+
+    //https://bost.ocks.org/mike/bar/
+    /*
+    var data1 = [4, 8, 15, 16, 23, 42];
+
+    var xb = d3.scaleLinear()
+        .domain([0, d3.max(data1)])
+        .range([0, 420]);
+
+    svg.select("chart")
+      .data(data1)
+      .enter().append("chart")
+      .style("width", function(d) { return xb(d) + "px"; })
+      .text(function(d) { return d; });
+      */
+      /*
+      var data1 = [25,50];
+
+      var xb = d3.scaleLinear()
+          .domain([0, d3.max(data1)])
+          .range([0, 100]);
+
+      d3.select("#comparison")
+        .data(data1)
+        .enter()
+        .append("svg")
+        .append("rect")
+        .attr("width", function(d) { return xb(d) ; })
+        .attr("height", function(d) { return xb(d) ; })
+        /*.attr("width",(d) => {
+            if ( isNaN( xb(d) ) == false)  {
+              return(x(d.longitude))
+            }
+
+         })
+
+        //.attr("width",100)
+        //.attr("height",100)
+        //.attr("fill-opacity", 1)
+        .style("fill","MidnightBlue")
+        .text(function(d) { return d; });
+*/
+
+/*
+        svg.selectAll("rect")
+             .data(dataset)
+             .enter()
+             .append("rect")
+             .attr("width",1)
+             .attr("height",1)
+             .attr("fill-opacity", (d) => (d.density+100)/1000) // set the fill opacity
+             .style("fill","MidnightBlue")
+             .attr("x",(d) => {
+                 if ( isNaN( d.longitude ) == false)  {
+                   return(x(d.longitude))
+                 }
+
+              })
+
+  */
+
+/*
+        var data = [10, 5, 12, 15];
+
+         var width = 300
+            scaleFactor = 20,
+            barHeight = 30;
+
+         var graph = d3.select("body")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", barHeight * data.length);
+
+         var bar = graph.selectAll("g")
+            .data(data)
+            .enter()
+            .append("g")
+            .attr("transform", function(d, i) {
+               return "translate(0," + i * barHeight + ")";
+            });
+         bar.append("rect").attr("width", function(d) {
+            return d * scaleFactor;
+         })
+
+         .attr("height", barHeight - 1);
+
+         bar.append("text")
+            .attr("x", function(d) { return (d*scaleFactor); })
+            .attr("y", barHeight / 2)
+            .attr("dy", ".35em")
+            .text(function(d) { return d; });
+
+    */
+
+    }
 
 function mouse_over() {
     svg.selectAll(".europe")
@@ -58,23 +192,27 @@ function mouse_over() {
              $('#info-container').offset(currentMousePos).show();
 
             if(!d.mean && !d.meanMale)
-              d3.select("#info-container").hide = function() {  
+              d3.select("#info-container").hide = function() {
                 this.style('display', 'none');
                 return this;
             }
              // d3.select("#info-container").hide();
               //$("#info-container").hide();
+       })
+       .on("click", function(d){
+         //$("#comparison").text("selected country");
+         barchart()
        });
 
     $('.europe').hover(function() {
       //$("#info-container").show();
-      d3.select("#info-container").show = function() {  
+      d3.select("#info-container").show = function() {
         this.style('display', 'initial');
         return this;
     }
     }, function() {
      // $("#info-container").hide();
-     d3.select("#info-container").hide = function() {  
+     d3.select("#info-container").hide = function() {
       this.style('display', 'none');
       return this;
   }
@@ -100,7 +238,7 @@ function load_data(theme) {
     }).get((error,rows)=>{
     dataset = rows;
     color_opacity = d3.scaleLinear()
-                        .domain(d3.extent(rows,(row)=> row.mean 
+                        .domain(d3.extent(rows,(row)=> row.mean
                       )).range([0.2, 1]);
 
         var min = d3.min(rows, (row) => row.mean );
@@ -170,7 +308,7 @@ function load_data(theme) {
 //$(document).ready(function() {
   document.addEventListener("DOMContentLoaded", function(e) {
     /* Your D3.js here */
-   
+
     // add svg to page
     d3.xml("svg/europe.svg").mimeType("image/svg+xml").get(function(error, xml) {
         if (error) throw error;
@@ -178,10 +316,10 @@ function load_data(theme) {
         svg = d3.select("svg");
 
         load_data("Happiness index");
-        
+
     });
 
-    // dropdown 
+    // dropdown
     $(".dropdown li").click(function(e) {
       load_data(e.target.text);
     });
