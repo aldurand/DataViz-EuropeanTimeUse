@@ -2,29 +2,43 @@ var svg = null;
 var dataset = null;
 var count = 0;
 var color_opacity = null;
-//var dsv = d3.dsv(";", "text/plain");
 var currentMousePos = {top:0, left:0}
+var year = "2000"
+var gender = "All"
+var day = "All"
+var filtre = "2000 All All"
 
-var question_dic = { // à modifier
-  "Happiness index" :"Y11_Q41",
-  "Satisfaction with education": "Y11_Q40a",
-  "Satisfaction with present job": "Y11_Q40b",
-  "Satisfaction with present standard of living": "Y11_Q40c",
-  "Satisfaction with accommodation": "Y11_Q40d",
-  "Satisfaction with family life": "Y11_Q40e",
-  "Satisfaction with health": "Y11_Q40f",
-  "Satisfaction with social life": "Y11_Q40g",
-  "Satisfaction with economic situation of the country": "Y11_Q40h"
+// dictionnaire correspndance entre text filtre et texte table dans data
+// Quid de la gestion de plusieurs filtre -> plusieurs textes pour une table
+var filtre_dic = { 
+  "2000 Female Weekdays" :"data_2000_F_D1-5.csv",
+  "2000 Female All": "data_2000_F_D1-7",
+  "2000 Female Weekends": "data_2000_F_D6-7.csv",
+  "2000 Male Weekdays": "data_2000_M_D1-5.csv",
+  "2000 Male All": "data_2000_M_D1-7.csv",
+  "2000 Male Weekends": "data_2000_M_D6-7.csv",
+  "2000 All Weekdays": "data_2000_T_D1-5.csv",
+  "2000 All All": "data_2000_T_D1-7.csv",
+  "2000 All Weekends": "data_2000_T_D6-7.csv",
+  "2010 Female Weekdays": "data_2010_F_D1-5.csv",
+  "2010 Female All": "data_2010_F_D1-7.csv",
+  "2010 Female Weekends": "data_2010_F_D6-7.csv",
+  "2010 Male Weekdays": "data_2010_M_D1-5.csv",
+  "2010 Male All": "data_2010_M_D1-7.csv",
+  "2010 Male Weekends": "data_2010_M_D6-7.csv",
+  "2010 All Weekdays": "data_2010_T_D1-5.csv",
+  "2010 All All": "data_2010_T_D1-7.csv",
+  "2010 All Weekends": "data_2010_T_D6-7.csv",
 }
 
 function draw() {
     svg.selectAll(".europe")
-       .datum(function(d) { return { countryCode: d3.select(this).attr("id") }})
-       .data(dataset, function(d) { return d.countryCode })
+      //données associées à la carte
+         .datum(function(d) { return { countryCode: d3.select(this).attr("id") }})
+        .data(dataset, function(d) { return d.country })
        .style("fill", "Blue")
-       .style("fill-opacity", function(d) {
-            return color_opacity(d.mean);
-       });
+      // .style("fill-opacity", function(d) {return color_opacity(d.mean);
+      // });
 };
 
 /*function draw2() {
@@ -36,144 +50,10 @@ function draw() {
             return "#107FC9";
           if (d.meanMale == d.meanFemale)
             return "grey"
-          return "#CB5B7C";
+          return "#CB5B7C";     
        })
        .style("fill-opacity", 1);
 };*/
-
-function barchart() {
-
-  // console.log("in barChart")
-
-  //https://medium.freecodecamp.org/how-to-create-your-first-bar-chart-with-d3-js-a0e8ea2df386
-  console.log("in barChart")
-  var svgWidth = 100;
-  var svgHeight = 100;
-
-  //var dataset1 = [80, 100, 56, 120, 180, 30, 40, 120, 160];
-  var dataset1 = [10,20,30,40,50,60]; //,30,40,50,60];
-  var barPadding = 5;
-  var barWidth = (svgWidth / dataset1.length);
-
-  var barChart = d3.select("#comparison")
-      .data(dataset1)
-      .enter()
-      .append("svg")
-      .append("rect")
-      .style("fill","MidnightBlue")
-      .attr("y",10)
-      .attr("x",10)
-      //.attr("y", function(d) {
-      //    return svgHeight - d
-      //})
-      //.attr("height", function(d) {
-      //    return d;
-      //})
-      .attr("height", 100)
-      .attr("width", 10);
-      //.text(function(d) { return d; });
-
-      //.attr("width", barWidth - barPadding);
-      //.attr("transform", function (d, i) {
-      //     var translate = [barWidth * i, 0];
-      //     return "translate("+ translate +")";
-      //});
-
-
-    //https://bost.ocks.org/mike/bar/
-    /*
-    var data1 = [4, 8, 15, 16, 23, 42];
-
-    var xb = d3.scaleLinear()
-        .domain([0, d3.max(data1)])
-        .range([0, 420]);
-
-    svg.select("chart")
-      .data(data1)
-      .enter().append("chart")
-      .style("width", function(d) { return xb(d) + "px"; })
-      .text(function(d) { return d; });
-      */
-      /*
-      var data1 = [25,50];
-
-      var xb = d3.scaleLinear()
-          .domain([0, d3.max(data1)])
-          .range([0, 100]);
-
-      d3.select("#comparison")
-        .data(data1)
-        .enter()
-        .append("svg")
-        .append("rect")
-        .attr("width", function(d) { return xb(d) ; })
-        .attr("height", function(d) { return xb(d) ; })
-        /*.attr("width",(d) => {
-            if ( isNaN( xb(d) ) == false)  {
-              return(x(d.longitude))
-            }
-
-         })
-
-        //.attr("width",100)
-        //.attr("height",100)
-        //.attr("fill-opacity", 1)
-        .style("fill","MidnightBlue")
-        .text(function(d) { return d; });
-*/
-
-/*
-        svg.selectAll("rect")
-             .data(dataset)
-             .enter()
-             .append("rect")
-             .attr("width",1)
-             .attr("height",1)
-             .attr("fill-opacity", (d) => (d.density+100)/1000) // set the fill opacity
-             .style("fill","MidnightBlue")
-             .attr("x",(d) => {
-                 if ( isNaN( d.longitude ) == false)  {
-                   return(x(d.longitude))
-                 }
-
-              })
-
-  */
-
-/*
-        var data = [10, 5, 12, 15];
-
-         var width = 300
-            scaleFactor = 20,
-            barHeight = 30;
-
-         var graph = d3.select("body")
-            .append("svg")
-            .attr("width", width)
-            .attr("height", barHeight * data.length);
-
-         var bar = graph.selectAll("g")
-            .data(data)
-            .enter()
-            .append("g")
-            .attr("transform", function(d, i) {
-               return "translate(0," + i * barHeight + ")";
-            });
-         bar.append("rect").attr("width", function(d) {
-            return d * scaleFactor;
-         })
-
-         .attr("height", barHeight - 1);
-
-         bar.append("text")
-            .attr("x", function(d) { return (d*scaleFactor); })
-            .attr("y", barHeight / 2)
-            .attr("dy", ".35em")
-            .text(function(d) { return d; });
-
-    */
-
-    }
 
 function mouse_over() {
     svg.selectAll(".europe")
@@ -192,69 +72,90 @@ function mouse_over() {
              $('#info-container').offset(currentMousePos).show();
 
             if(!d.mean && !d.meanMale)
-              d3.select("#info-container").hide = function() {
+              d3.select("#info-container").hide = function() {  
                 this.style('display', 'none');
                 return this;
             }
              // d3.select("#info-container").hide();
               //$("#info-container").hide();
        })
-       .on("click", function(d){
-         //$("#comparison").text("selected country");
-         barchart()
+       .on("click",function(d){
+        
+       /* count = count +1
+        var doc1 = document.getElementById('comparison'); 
+        var doc2 = document.getElementById('comparison2'); 
+
+         if(count%2==0){
+          doc1.style.position = "absolute";
+          doc1.style.left = 800+'px';
+          doc1.style.top = 50+'px';
+          d3.select("#comparison").text(txt1);
+        }else{
+          doc2.style.position = "absolute";
+          doc2.style.left = 800+'px';
+          doc2.style.top = 100+'px';
+          d3.select("#comparison2").text(txt1);
+        }
+         //$('#graph').offset(currentMousePos).show();*/
+         
        });
 
     $('.europe').hover(function() {
       //$("#info-container").show();
-      d3.select("#info-container").show = function() {
+      d3.select("#info-container").show = function() {  
         this.style('display', 'initial');
         return this;
     }
     }, function() {
      // $("#info-container").hide();
-     d3.select("#info-container").hide = function() {
+     d3.select("#info-container").hide = function() {  
       this.style('display', 'none');
       return this;
   }
     })
 };
 
-function load_data(theme) {
-  var questionCode = question_dic[theme];
-  d3.select("#h1").text(theme);
+function load_data(filtre) {
+  var tabName = filtre_dic[filtre];
+  d3.select("#h1").text(filtre); // change le titre avec le filtre choisi
   //$("h1").text(theme);
   // load csv
 
   //if (questionCode) {
-
-    d3.csv("data_2/all_questions.csv").row((d,i) => {
+    //load tout le dataset peut importe la question...
+    console.log(tabName)
+    d3.csv("output_tables/"+tabName)
+    .row((d,i) => {
       return {
-        countryCode: d.CountryCode.toLowerCase(),
-        questionCode: d.question_code,
-        subset: d.subset,
-        answer: d.answer,
-        mean: +d.Mean
+        country: d.country,
+        basic_needs: +d.basic_needs, 
+        pro_study: +d.pro_study,
+        household_family: +d.household_family,
+        total_constraint: +d.total_constraint,
+        leisure_media: +d.leisure_media,
+        leisure_sports_outdoors: +d.leisure_sports_outdoors,
+        leisure_social_meetings: +d.leisure_social_meetings,
+        total_leisure: +d.total_leisure,
+        GHI : +d.GHI
       };
     }).get((error,rows)=>{
+    console.log("Loaded"+rows.length+"rows");
+    if(rows.length>0){
+        console.log("First row:",rows[0])
+        console.log("Last row:",rows[rows.length-1])
+    }
     dataset = rows;
-    color_opacity = d3.scaleLinear()
-                        .domain(d3.extent(rows,(row)=> row.mean
-                      )).range([0.2, 1]);
+    var min = d3.min(rows, (row) => row.GHI );
+    var max = d3.max(rows, (row) => row.GHI );
+    console.log("min:",min)
+    console.log("max:",max)
+    color_opacity = d3.scaleLinear().domain(d3.extent(rows,(row)=> row.GHI)).range([0.2, 1]);
 
-        var min = d3.min(rows, (row) => row.mean );
-        var max = d3.max(rows, (row) => row.mean );
-        d3.select("#grad1").text(min);
-        //$("#grad1").text(min);
-        d3.select("#grad2").text(max);
-        //$("#grad2").text(max);
-        //partie dédiée à l'échelle
-        //var text = "-webkit-linear-gradient(left,rgba(0,67,132,"+color_opacity(min)+"),rgba(0,67,132,"+color_opacity(max)+")";
-        //$("#gradient").css("background", text);
-        //$("#gradient-container").show();
         draw();
         mouse_over();
     });
   }
+
    /* dsv("data/all_questions.csv", function(d) {
         return {
             countryCode: d.CountryCode.toLowerCase(),
@@ -263,7 +164,7 @@ function load_data(theme) {
             answer: d.answer,
             mean: +d.Mean
         }
-  }, function(error, rows) {
+  }, function(error, rows) { // FILTRE QUESTION CODE POUR GARDER QUE LES DATA CORRESPONDANT AU FILTRE
         console.log(rows[0]);
         dataset = rows.filter(function(row) {
             return row.questionCode == questionCode;
@@ -285,54 +186,44 @@ function load_data(theme) {
 
         draw();
         mouse_over();
-
     });*/
- /* } else {
-    $("#legend").text('Countries are colored in red when women are happier than men, blue when men are happier than women and grey when men and women have the same happiness score.')
-    dsv("data/happiness-male-female.csv", function(d) {
-      return {
-        countryCode: d.CountryCode.toLowerCase(),
-        meanMale: d.mean_male,
-        meanFemale: d.mean_female
-      }
-    }, function(error, rows) {
-        $("#gradient-container").hide();
-      dataset = rows;
-      console.log(rows[0]);
-      draw2();
-    });
-  }
 
-}*/
 
-//$(document).ready(function() {
   document.addEventListener("DOMContentLoaded", function(e) {
-    /* Your D3.js here */
-
     // add svg to page
     d3.xml("svg/europe.svg").mimeType("image/svg+xml").get(function(error, xml) {
         if (error) throw error;
         $("svg").replaceWith(xml.documentElement);
         svg = d3.select("svg");
 
-        load_data("Happiness index");
-
+        load_data(filtre);
     });
 
-    // dropdown
-    $(".dropdown li").click(function(e) {
-      load_data(e.target.text);
-    });
-
-    // mouse position
-    $(document).mousemove(function(event) {
+  $(document).mousemove(function(event) {
         currentMousePos.left = event.pageX - 70;
         currentMousePos.top = event.pageY + 20;
-    });
   });
-//});
+});
 
 
+function changeYear(event) {
+  var newYear = event.innerText;
+  year = newYear;
+  filtre = year+" "+gender+" "+day
+  console.log(question_dic[year+" "+gender+" "+day])
+}
+function changeGender(event) {
+  var newGender = event.innerText;
+  gender = newGender;
+  filtre = year+" "+gender+" "+day
+
+}
+function changeDay(event) {
+  var newDay = event.innerText;
+  day = newDay;
+  filtre = year+" "+gender+" "+day
+}
+  
 
 var isoCountries = {
     'AF' : 'Afghanistan',
