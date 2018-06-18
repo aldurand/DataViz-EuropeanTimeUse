@@ -63,6 +63,11 @@ function barchart() {
   k=k%4
 
   var name = "#comparison"+k
+  var doc = document.getElementById(name);
+  doc.style.position = "absolute";
+  doc.style.left = 800+'px';
+  doc.style.top = 50 + 50*k +'px';
+   
   var barChart = d3.select(name)
       .append("svg")
       .attr("width", svgWidth)
