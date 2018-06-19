@@ -7,7 +7,7 @@ var year = "2000"
 var gender = "All"
 var day = "All"
 var filtre = "2000 All All"
-
+var k = 0
 // dictionnaire correspndance entre text filtre et texte table dans data
 // Quid de la gestion de plusieurs filtre -> plusieurs textes pour une table
 var filtre_dic = {
@@ -59,25 +59,50 @@ function barchart() {
   var xScale = d3.scaleLinear()
           .range([0, svgWidth - margin.right - margin.left]);
 
-  k = k+1;
-  k=k%4
 
-  var name = "#comparison"+k
+  //console.log(k)
+  //define the balise name
+  k1 = k%4;
+
+  var name = "comparison"+k1
+
+  console.log(k1)
+  console.log(k)
+  console.log(name)
+
   var doc = document.getElementById(name);
-  doc.style.position = "absolute";
-  doc.style.left = 800+'px';
-  doc.style.top = 50 + 50*k +'px';
-   
-  var barChart = d3.select(name)
-      .append("svg")
-      .attr("width", svgWidth)
-      .attr("height", svgHeight)
 
+  doc.style.position = "absolute";
+  doc.style.top = 400 + 50*k1 + 'px';
+  doc.style.left = 0 +'px';
+
+
+  if (k>3){
+
+    var colorfill = "Red"
+
+    var barChart = d3.select("#"+name)
+                   .select("svg").remove()
+
+    var barChart = d3.select("#"+name)
+                   .append("svg")
+                   .attr("width", svgWidth)
+                   .attr("height", svgHeight)
+
+  } else {
+    var colorfill = "MidnightBlue"
+
+    var barChart = d3.select("#"+name)
+                   .append("svg")
+                   .attr("width", svgWidth)
+                   .attr("height", svgHeight)
+
+  }
       barChart.selectAll("rect")
         .data(dataset1)
         .enter()
           .append("rect")
-          .style("fill","MidnightBlue")
+          .style("fill",colorfill)
           .attr("y", function(d) {
               return (svgHeight-d);
           })
@@ -90,6 +115,9 @@ function barchart() {
             return (d)
         })
         .attr("width", barWidth);
+
+        k = k+1;
+
 
     }
 
