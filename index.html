@@ -2,58 +2,65 @@
 <head>
     <script type="text/javascript" src="js/design2.js"></script>
 
-    <link rel="stylesheet" href="css/bootstrap.css">
+    <!--<link rel="stylesheet" href="css/bootstrap.css">-->
     <script src="js/jquery-2.2.4.js"></script>
-    <script src="js/bootstrap.js"></script>
+    <!--<script src="js/bootstrap.js"></script>-->
     <script src="js/d3.js"></script>
     <link rel="stylesheet" href="css/style.css">
 
 </head>
 
-<div id="design2">
-    <h1 class="text-center">Happiness index</h1>
-    <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Choose a theme
-            <span class="caret"></span>
-        </button>
+<body>
+    <!-- Filters -->
+    <ul>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Year</a>
+            <div class="dropdown-content" id="year">
+                <a onclick="changeYear(this)">2000</a>
+                <a onclick="changeYear(this)">2010</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Gender</a>
+            <div class="dropdown-content" id="gender">
+                <a onclick="changeGender(this)">All</a>
+                <a onclick="changeGender(this)">Female</a>
+                <a onclick="changeGender(this)">Male</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Days</a>
+            <div class="dropdown-content" id="day">
+                <a onclick="changeDay(this)">All</a>
+                <a onclick="changeDay(this)">Weekdays</a>
+                <a onclick="changeDay(this)">Weekends</a>
+            </div>
+        </li>
+    </ul>
 
-        <!-- Modifier pour les filtres ! -->
-        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-            <li><a href="#">Happiness index</a></li>
-            <li><a href="#">Happiness index: gender comparison</a></li>
-            <li><a href="#">Satisfaction with education</a></li>
-            <li><a href="#">Satisfaction with present job</a></li>
-            <li><a href="#">Satisfaction with present standard of living</a></li>
-            <li><a href="#">Satisfaction with accommodation</a></li>
-            <li><a href="#">Satisfaction with family life</a></li>
-            <li><a href="#">Satisfaction with health</a></li>
-            <li><a href="#">Satisfaction with social life</a></li>
-            <li><a href="#">Satisfaction with economic situation of the country</a></li>
-        </ul>
-    </div>
+    <h1 class="text-center">Europe Hapiness Map</h1>
+
 
     <div id="svg-container"><svg></svg></div>
+
     <div id="info-container">
         <div id="country"></div>
-        <div id="mean"></div>
+        <div id="GHI"></div>
     </div>
-    <div id="legend">
-    </div>
-    </div>
-      <div id="comparison0">
-      </div>
-      </div>
-        <div id="comparison1">
-      </div>
-      </div>
-        <div id="comparison2">
-      </div>
-      </div>
-        <div id="comparison3">
-    </div>
-    <div id="gradient-container">
-    <div id="grad1">7.2</div><div id="grad2">8</div>
-    <div id="gradient"></div>
-    </div>
-</div>
+
+
+    <div id="comparisonConst0"></div>
+    <div id="comparisonConst1"></div>
+    <div id="comparisonConst2"></div>
+    <div id="comparisonConst3"></div>
+
+    <div id="comparisonUnConst0"></div>
+    <div id="comparisonUnConst1"></div>
+    <div id="comparisonUnConst2"></div>
+    <div id="comparisonUnConst3"></div>
+
+
+</body>
+<!-- ancien merge d'alexandre -->
+
+
