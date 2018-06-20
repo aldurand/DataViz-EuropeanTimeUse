@@ -7,11 +7,15 @@ var year = "2000"
 var gender = "All"
 var day = "All"
 var filtre = "2000 All All"
+<<<<<<< HEAD
 var k = 0
 var barWidth = 50
 var svgWidth = 400;
 var svgHeight = 100;
 
+=======
+var k = 0;
+>>>>>>> 6e4a3b7fb622f1c0a9fb830e6461450fd1d8558a
 // dictionnaire correspndance entre text filtre et texte table dans data
 // Quid de la gestion de plusieurs filtre -> plusieurs textes pour une table
 var filtre_dic = {
@@ -38,59 +42,71 @@ var filtre_dic = {
 function draw() {
     svg.selectAll(".europe")
       //données associées à la carte
-         .datum(function(d) { return { countryCode: d3.select(this).attr("id") }})
-        .data(dataset, function(d) { return d.country })
+        .datum(function(d) { return { country_code: d3.select(this).attr("id") }})
+        .data(dataset, function(d) { return d.country_code })
        .style("fill", "Blue")
-      // .style("fill-opacity", function(d) {return color_opacity(d.mean);
-      // });
+       .style("fill-opacity", function(d) {return color_opacity(d.GHI);
+       });
 };
 
+<<<<<<< HEAD
 
 function setBarChart( Frame ,message, nameConst ,colorfill, colorfill2,dataset ){
+=======
+function setBarChart( doc,nameConst ,colorfill, colorfill2,dataset ){
+>>>>>>> 6e4a3b7fb622f1c0a9fb830e6461450fd1d8558a
 
-  var XrectConstrain = 0
+    var XrectConstrain = 0
 
+<<<<<<< HEAD
   var margin = {top:0, right:0, bottom:20, left:50};
 
+=======
+    var margin = {top:0, right:0, bottom:20, left:50};
+    var barWidth = 50
+    var svgWidth = 400;
+    var svgHeight = 100;
+>>>>>>> 6e4a3b7fb622f1c0a9fb830e6461450fd1d8558a
 
-  var yScale = d3.scaleLinear()
-      //.domain([0, d3.max(dataset1)])
-      .range([svgHeight - margin.top - margin.bottom, 0]);
+    var yScale = d3.scaleLinear()
+    //.domain([0, d3.max(dataset1)])
+        .range([svgHeight - margin.top - margin.bottom, 0]);
 
-  var xScale = d3.scaleLinear()
-          .range([0, svgWidth - margin.right - margin.left]);
+    var xScale = d3.scaleLinear()
+        .range([0, svgWidth - margin.right - margin.left]);
 
  if ( k == 0 ) {
    Frame.innerHTML += message ;
   }
 
-  if (k>3){
+    if (k>3){
 
-    var colorfill = colorfill
-    var colorfill2 = colorfill2
+        var colorfill = colorfill
+        var colorfill2 = colorfill2
 
-    var barChartConst = d3.select("#"+nameConst)
-                   .select("svg").remove()
+        var barChartConst = d3.select("#"+nameConst)
+            .select("svg").remove()
 
-    var barChartConst = d3.select("#"+nameConst)
-                   .append("svg")
-                   .attr("width", svgWidth)
-                   .attr("height", svgHeight)
+        var barChartConst = d3.select("#"+nameConst)
+            .append("svg")
+            .attr("width", svgWidth)
+            .attr("height", svgHeight)
 
-  } else {
+    } else {
 
-    var colorfill = colorfill2
-    var colorfill2 = colorfill
+        var colorfill = colorfill2
+        var colorfill2 = colorfill
 
-     var barChartConst = d3.select("#"+nameConst)
-                    .append("svg")
-                    .attr("width", svgWidth)
-                    .attr("height", svgHeight)
+        var barChartConst = d3.select("#"+nameConst)
+            .append("svg")
+            .attr("width", svgWidth)
+            .attr("height", svgHeight)
 
-  }
-     barChartConst.selectAll("rect")
+    }
+    barChartConst.selectAll("rect")
         .data(dataset)
         .enter()
+<<<<<<< HEAD
           .append("rect")
           .style("fill",colorfill)
           .attr("y", function(d) {
@@ -102,30 +118,49 @@ function setBarChart( Frame ,message, nameConst ,colorfill, colorfill2,dataset )
           .attr("height", function(d) {
               return (d) })
           .attr("width", barWidth)
+=======
+        .append("rect")
+        .style("fill",colorfill)
+        .attr("y", function(d) {
+            return (svgHeight-d);
+        })
+        .attr("x", function(d) {
+            XrectConstrain = XrectConstrain + barWidth
+            return XrectConstrain })
+        .attr("height", function(d) {
+            return (d) })
+        .attr("width", barWidth)
+>>>>>>> 6e4a3b7fb622f1c0a9fb830e6461450fd1d8558a
 
 }
 
 function barchart() {
 
 
+<<<<<<< HEAD
   var dataset1 = [50,20,50];
   var dataset2 = [10,20,60];
+=======
+    var dataset1 = [50,20,30,50];
+    var dataset2 = [10,20,30,60];
+>>>>>>> 6e4a3b7fb622f1c0a9fb830e6461450fd1d8558a
 
-  //define the balise name
-  k1 = k%4;
+    //define the balise name
+    k1 = k%4;
 
-  var nameConst = "comparisonConst"+k1
-  var nameUnConst= "comparisonUnConst"+k1
+    var nameConst = "comparisonConst"+k1
+    var nameUnConst= "comparisonUnConst"+k1
 
-  console.log(k1)
-  console.log(k)
-  console.log(nameConst)
+    console.log(k1)
+    console.log(k)
+    console.log(nameConst)
 
-  var doc1 = document.getElementById(nameConst);
-  doc1.style.position = "absolute";
-  doc1.style.top = 800 + 80*k1 + 'px';
-  doc1.style.left = 0 +'px';
+    var doc1 = document.getElementById(nameConst);
+    doc1.style.position = "absolute";
+    doc1.style.top = 800 + 80*k1 + 'px';
+    doc1.style.left = 0 +'px';
 
+<<<<<<< HEAD
   var doc2 = document.getElementById(nameUnConst);
   doc2.style.position = "absolute";
   doc2.style.top = 800 + 80*k1 + 'px';
@@ -164,13 +199,23 @@ function barchart() {
   setBarChart( FrameConst,messageC,nameConst ,colorfill, colorfill2,dataset1)
   setBarChart( FrameUnconst,messageU , nameConst , colorfill2, colorfill,dataset2 )
   k = k+1;
+=======
+    var doc2 = document.getElementById(nameUnConst);
+    doc2.style.position = "absolute";
+    doc2.style.top = 800 + 80*k1 + 'px';
+    doc2.style.left = 300 +'px';
+
+    var colorfill = "Red"
+    var colorfill2 = "MidnightBlue"
+    setBarChart( doc1,nameConst ,colorfill, colorfill2,dataset1)
+    setBarChart( doc2,nameUnConst ,colorfill2, colorfill,dataset2 )
+    k = k+1;
+>>>>>>> 6e4a3b7fb622f1c0a9fb830e6461450fd1d8558a
 }
 /*
 function barchart0() {
-
   var XrectConstrain = 0
   var XrectUConstrain = 0
-
   var margin = {top:0, right:0, bottom:20, left:50};
   var barWidth = 50
   var svgWidth = 400;
@@ -182,7 +227,6 @@ function barchart0() {
   var yScale = d3.scaleLinear()
       //.domain([0, d3.max(dataset1)])
       .range([svgHeight - margin.top - margin.bottom, 0]);
-
   var xScale = d3.scaleLinear()
           .range([0, svgWidth - margin.right - margin.left]);
 
@@ -190,10 +234,8 @@ function barchart0() {
   //console.log(k)
   //define the balise name
   k1 = k%4;
-
   var nameConst = "comparisonConst"+k1
   var nameUnConst= "comparisonUnConst"+k1
-
   console.log(k1)
   console.log(k)
   console.log(name)
@@ -209,10 +251,8 @@ function barchart0() {
   doc2.style.left = 200 +'px';
 
   if (k>3){
-
     var colorfill = "Red"
     var colorfill2 = "MidnightBlue"
-
     var barChartConst = d3.select("#"+nameConst)
                    .select("svg").remove()
 
@@ -220,7 +260,6 @@ function barchart0() {
                    .append("svg")
                    .attr("width", svgWidth)
                    .attr("height", svgHeight)
-
 
      var barChartUnConst = d3.select("#"+nameUnConst)
                     .select("svg").remove()
@@ -231,7 +270,6 @@ function barchart0() {
                     .attr("height", svgHeight)
 
   } else {
-
     var colorfill = "MidnightBlue"
     var colorfill2 = "Red"
 
@@ -276,7 +314,6 @@ function barchart0() {
           return (d) })
       .attr("width", barWidth)
 
-
         k = k+1;
 
     }
@@ -284,23 +321,26 @@ function barchart0() {
 function mouse_over() {
     svg.selectAll(".europe")
        .on("mousemove", function(d) {
-         d3.select("#country").text(isoCountries[d.countryCode.toUpperCase()]);
+            d3.select("#country").text(isoCountries[d.country_code.toUpperCase()]);
 
-            if (d.meanMale)
-              d3.select("#mean").text("Male:" + d.meanMale + "; Female:" + d.meanFemale);
-            else
-              d3.select("#mean").text(d.mean);
+            d3.select("#GHI").text(d.GHI);
+            /*if (d.meanMale){
+              d3.select("#mean").text("Male:" + d.meanMale + "; Female:" + d.meanFemale);}
+            else{
+                console.log(d.mean);d3.select("#GHI").text(d.GHI);*/
+            //}
 
-             $('#info-container').offset(currentMousePos).show();
+            $('#info-container').offset(currentMousePos).show();
 
-            if(!d.mean && !d.meanMale)
+            /*if(!d.mean && !d.meanMale){
               d3.select("#info-container").hide = function() {
                 this.style('display', 'none');
-                return this;
-            }
+                return this;}
+            }*/
 
        })
        .on("click", function(d){
+
          barchart()
          console.log("done barchart")
        });
@@ -327,11 +367,12 @@ function load_data(filtre) {
 
   //if (questionCode) {
     //load tout le dataset peut importe la question...
-    console.log(tabName)
+    console.log(tabName);
     d3.csv("output_tables/"+tabName)
     .row((d,i) => {
       return {
         country: d.country,
+        country_code: d.country_code.toLowerCase(),
         basic_needs: +d.basic_needs,
         pro_study: +d.pro_study,
         household_family: +d.household_family,
@@ -411,21 +452,25 @@ function load_data(filtre) {
 
 
 function changeYear(event) {
-  var newYear = event.innerText;
-  year = newYear;
-  filtre = year+" "+gender+" "+day
-  console.log(question_dic[year+" "+gender+" "+day])
+
+    var newYear = event.innerText;
+    year = newYear;
+    filtre = year+" "+gender+" "+day;
+    load_data(filtre);
+    //console.log(question_dic[year+" "+gender+" "+day])
 }
 function changeGender(event) {
-  var newGender = event.innerText;
-  gender = newGender;
-  filtre = year+" "+gender+" "+day
+    var newGender = event.innerText;
+    gender = newGender;
+    filtre = year+" "+gender+" "+day;
+    load_data(filtre);
 
 }
 function changeDay(event) {
-  var newDay = event.innerText;
-  day = newDay;
-  filtre = year+" "+gender+" "+day
+    var newDay = event.innerText;
+    day = newDay;
+    filtre = year+" "+gender+" "+day;
+    load_data(filtre);
 }
 
 
@@ -611,6 +656,7 @@ var isoCountries = {
     'RE' : 'Reunion',
     'RO' : 'Romania',
     'RU' : 'Russian Federation',
+    'RU-KALININGRAD' : 'Russian Federation',
     'RW' : 'Rwanda',
     'BL' : 'Saint Barthelemy',
     'SH' : 'Saint Helena',
@@ -660,7 +706,7 @@ var isoCountries = {
     'UG' : 'Uganda',
     'UA' : 'Ukraine',
     'AE' : 'United Arab Emirates',
-    'GB' : 'United Kingdom',
+    'UK' : 'United Kingdom',
     'US' : 'United States',
     'UM' : 'United States Outlying Islands',
     'UY' : 'Uruguay',
