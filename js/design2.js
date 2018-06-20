@@ -41,16 +41,114 @@ function draw() {
       // });
 };
 
-function barchart() {
 
-  var Xrect = 0
+function setBarChart( doc,nameConst ,colorfill, colorfill2,dataset ){
+
+  var XrectConstrain = 0
+
   var margin = {top:0, right:0, bottom:20, left:50};
   var barWidth = 50
   var svgWidth = 400;
   var svgHeight = 400;
 
-  var dataset1 = [10,20,30,40,50,60];
+  var yScale = d3.scaleLinear()
+      //.domain([0, d3.max(dataset1)])
+      .range([svgHeight - margin.top - margin.bottom, 0]);
 
+  var xScale = d3.scaleLinear()
+          .range([0, svgWidth - margin.right - margin.left]);
+
+
+  if (k>3){
+
+    var colorfill = colorfill
+    var colorfill2 = colorfill2
+
+    var barChartConst = d3.select("#"+nameConst)
+                   .select("svg").remove()
+
+    var barChartConst = d3.select("#"+nameConst)
+                   .append("svg")
+                   .attr("width", svgWidth)
+                   .attr("height", svgHeight)
+
+  } else {
+
+    var colorfill = colorfill2
+    var colorfill2 = colorfill
+
+     var barChartConst = d3.select("#"+nameConst)
+                    .append("svg")
+                    .attr("width", svgWidth)
+                    .attr("height", svgHeight)
+
+  }
+     barChartConst.selectAll("rect")
+        .data(dataset)
+        .enter()
+          .append("rect")
+          .style("fill",colorfill)
+          .attr("y", function(d) {
+              return (svgHeight-d);
+          })
+          .attr("x", function(d) {
+              XrectConstrain = XrectConstrain + barWidth
+              return XrectConstrain })
+        .attr("height", function(d) {
+            return (d) })
+        .attr("width", barWidth)
+
+    k = k+1;
+
+
+}
+
+function barchart() {
+
+
+  var dataset1 = [50,20,30];
+  var dataset2 = [10,20,30];
+
+  //console.log(k)
+  //define the balise name
+  k1 = k%4;
+
+  var nameConst = "comparisonConst"+k1
+  var nameUnConst= "comparisonUnConst"+k1
+
+  console.log(k1)
+  console.log(k)
+  console.log(nameConst)
+
+  var doc1 = document.getElementById(nameConst);
+  doc1.style.position = "absolute";
+  doc1.style.top = 400 + 80*k1 + 'px';
+  doc1.style.left = 0 +'px';
+
+  var doc2 = document.getElementById(nameUnConst);
+  doc2.style.position = "absolute";
+  doc2.style.top = 400 + 80*k1 + 'px';
+  doc2.style.left = 200 +'px';
+
+  var colorfill = "Red"
+  var colorfill2 = "MidnightBlue"
+  setBarChart( doc1,nameConst ,colorfill, colorfill2,dataset1 )
+  setBarChart( doc2,nameUnConst ,colorfill2, colorfill,dataset2 )
+
+}
+/*
+function barchart0() {
+
+  var XrectConstrain = 0
+  var XrectUConstrain = 0
+
+  var margin = {top:0, right:0, bottom:20, left:50};
+  var barWidth = 50
+  var svgWidth = 400;
+  var svgHeight = 400;
+
+  var dataset1 = [50,20,30];
+  var dataset2 = [10,20,30];
 
   var yScale = d3.scaleLinear()
       //.domain([0, d3.max(dataset1)])
@@ -64,41 +162,62 @@ function barchart() {
   //define the balise name
   k1 = k%4;
 
-  var name = "comparison"+k1
+  var nameConst = "comparisonConst"+k1
+  var nameUnConst= "comparisonUnConst"+k1
 
   console.log(k1)
   console.log(k)
   console.log(name)
 
-  var doc = document.getElementById(name);
+  var doc1 = document.getElementById(nameConst);
+  doc1.style.position = "absolute";
+  doc1.style.top = 400 + 80*k1 + 'px';
+  doc1.style.left = 0 +'px';
 
-  doc.style.position = "absolute";
-  doc.style.top = 400 + 50*k1 + 'px';
-  doc.style.left = 0 +'px';
-
+  var doc2 = document.getElementById(nameUnConst);
+  doc2.style.position = "absolute";
+  doc2.style.top = 400 + 80*k1 + 'px';
+  doc2.style.left = 200 +'px';
 
   if (k>3){
 
     var colorfill = "Red"
+    var colorfill2 = "MidnightBlue"
 
-    var barChart = d3.select("#"+name)
+    var barChartConst = d3.select("#"+nameConst)
                    .select("svg").remove()
 
-    var barChart = d3.select("#"+name)
+    var barChartConst = d3.select("#"+nameConst)
                    .append("svg")
                    .attr("width", svgWidth)
                    .attr("height", svgHeight)
+
+
+     var barChartUnConst = d3.select("#"+nameUnConst)
+                    .select("svg").remove()
+
+     var barChartUnConst = d3.select("#"+nameUnConst)
+                    .append("svg")
+                    .attr("width", svgWidth)
+                    .attr("height", svgHeight)
 
   } else {
-    var colorfill = "MidnightBlue"
 
-    var barChart = d3.select("#"+name)
+    var colorfill = "MidnightBlue"
+    var colorfill2 = "Red"
+
+    var barChartUnConst = d3.select("#"+nameUnConst)
                    .append("svg")
                    .attr("width", svgWidth)
                    .attr("height", svgHeight)
 
+     var barChartConst = d3.select("#"+nameConst)
+                    .append("svg")
+                    .attr("width", svgWidth)
+                    .attr("height", svgHeight)
+
   }
-      barChart.selectAll("rect")
+     barChartConst.selectAll("rect")
         .data(dataset1)
         .enter()
           .append("rect")
@@ -107,20 +226,32 @@ function barchart() {
               return (svgHeight-d);
           })
           .attr("x", function(d) {
-              Xrect = Xrect + barWidth
-              return Xrect
-           })
-
+              XrectConstrain = XrectConstrain + barWidth
+              return XrectConstrain })
         .attr("height", function(d) {
-            return (d)
+            return (d) })
+        .attr("width", barWidth)
+
+    barChartUnConst.selectAll("rect")
+      .data(dataset2)
+      .enter()
+        .append("rect")
+        .style("fill",colorfill2)
+        .attr("y", function(d) {
+            return (svgHeight-d);
         })
-        .attr("width", barWidth);
+        .attr("x", function(d) {
+            XrectUConstrain = XrectUConstrain + barWidth
+            return XrectUConstrain })
+      .attr("height", function(d) {
+          return (d) })
+      .attr("width", barWidth)
+
 
         k = k+1;
 
-
     }
-
+*/
 function mouse_over() {
     svg.selectAll(".europe")
        .on("mousemove", function(d) {
