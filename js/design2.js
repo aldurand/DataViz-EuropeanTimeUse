@@ -8,6 +8,10 @@ var gender = "All"
 var day = "All"
 var filtre = "2000 All All"
 var k = 0
+var barWidth = 50
+var svgWidth = 400;
+var svgHeight = 100;
+
 // dictionnaire correspndance entre text filtre et texte table dans data
 // Quid de la gestion de plusieurs filtre -> plusieurs textes pour une table
 var filtre_dic = {
@@ -42,14 +46,12 @@ function draw() {
 };
 
 
-function setBarChart( doc,nameConst ,colorfill, colorfill2,dataset ){
+function setBarChart( Frame ,message, nameConst ,colorfill, colorfill2,dataset ){
 
   var XrectConstrain = 0
 
   var margin = {top:0, right:0, bottom:20, left:50};
-  var barWidth = 50
-  var svgWidth = 400;
-  var svgHeight = 100;
+
 
   var yScale = d3.scaleLinear()
       //.domain([0, d3.max(dataset1)])
@@ -58,6 +60,9 @@ function setBarChart( doc,nameConst ,colorfill, colorfill2,dataset ){
   var xScale = d3.scaleLinear()
           .range([0, svgWidth - margin.right - margin.left]);
 
+ if ( k == 0 ) {
+   Frame.innerHTML += message ;
+  }
 
   if (k>3){
 
@@ -92,19 +97,19 @@ function setBarChart( doc,nameConst ,colorfill, colorfill2,dataset ){
               return (svgHeight-d);
           })
           .attr("x", function(d) {
-              XrectConstrain = XrectConstrain + barWidth
+              XrectConstrain = XrectConstrain + barWidth*1.8
               return XrectConstrain })
-        .attr("height", function(d) {
-            return (d) })
-        .attr("width", barWidth)
+          .attr("height", function(d) {
+              return (d) })
+          .attr("width", barWidth)
 
 }
 
 function barchart() {
 
 
-  var dataset1 = [50,20,30,50];
-  var dataset2 = [10,20,30,60];
+  var dataset1 = [50,20,50];
+  var dataset2 = [10,20,60];
 
   //define the balise name
   k1 = k%4;
@@ -126,10 +131,38 @@ function barchart() {
   doc2.style.top = 800 + 80*k1 + 'px';
   doc2.style.left = 300 +'px';
 
+  nameIdC = 'titleUnconstraint'
+  var FrameUnconst = document.getElementById(nameIdC);
+  FrameUnconst.style.position = "absolute";
+  FrameUnconst.style.top = 750 + 'px';
+  FrameUnconst.style.left = svgWidth/2 +'px';
+  FrameUnconst.style.textAlign = "left";
+  messageU = "unconstrained"
+  //FrameUnconst.innerHTML += 'Unconstrained';
+
+  nameIdUC = 'titleConstraint'
+  var FrameConst = document.getElementById(nameIdUC);
+  FrameConst.style.position = "absolute";
+  FrameConst.style.top = 750 + 'px';
+  FrameConst.style.left = 300 + svgWidth/2 +'px';
+  FrameConst.style.textAlign = "left";
+  //FrameConst.innerHTML += 'Constrained';
+  messageC = "constrained"
+
+  /*name1 = 'title1'
+  var FrameConst = document.getElementById(nameIdUC);
+  FrameConst.style.position = "absolute";
+  FrameConst.style.top = 750 + 'px';
+  FrameConst.style.left = 300 + svgWidth/2 +'px';
+  FrameConst.style.textAlign = "left";
+  //FrameConst.innerHTML += 'Constrained';
+  messageC = "constrained"
+  */
+
   var colorfill = "Red"
   var colorfill2 = "MidnightBlue"
-  setBarChart( doc1,nameConst ,colorfill, colorfill2,dataset1)
-  setBarChart( doc2,nameUnConst ,colorfill2, colorfill,dataset2 )
+  setBarChart( FrameConst,messageC,nameConst ,colorfill, colorfill2,dataset1)
+  setBarChart( FrameUnconst,messageU , nameConst , colorfill2, colorfill,dataset2 )
   k = k+1;
 }
 /*
