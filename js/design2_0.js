@@ -2,269 +2,249 @@ var svg = null;
 var dataset = null;
 var count = 0;
 var color_opacity = null;
+//var dsv = d3.dsv(";", "text/plain");
 var currentMousePos = {top:0, left:0}
-var year = "2000"
-var gender = "All"
-var day = "All"
-var filtre = "2000 All All"
-var k = 0;
-// dictionnaire correspndance entre text filtre et texte table dans data
-// Quid de la gestion de plusieurs filtre -> plusieurs textes pour une table
-var filtre_dic = {
-  "2000 Female Weekdays" :"data_2000_F_D1-5.csv",
-  "2000 Female All": "data_2000_F_D1-7",
-  "2000 Female Weekends": "data_2000_F_D6-7.csv",
-  "2000 Male Weekdays": "data_2000_M_D1-5.csv",
-  "2000 Male All": "data_2000_M_D1-7.csv",
-  "2000 Male Weekends": "data_2000_M_D6-7.csv",
-  "2000 All Weekdays": "data_2000_T_D1-5.csv",
-  "2000 All All": "data_2000_T_D1-7.csv",
-  "2000 All Weekends": "data_2000_T_D6-7.csv",
-  "2010 Female Weekdays": "data_2010_F_D1-5.csv",
-  "2010 Female All": "data_2010_F_D1-7.csv",
-  "2010 Female Weekends": "data_2010_F_D6-7.csv",
-  "2010 Male Weekdays": "data_2010_M_D1-5.csv",
-  "2010 Male All": "data_2010_M_D1-7.csv",
-  "2010 Male Weekends": "data_2010_M_D6-7.csv",
-  "2010 All Weekdays": "data_2010_T_D1-5.csv",
-  "2010 All All": "data_2010_T_D1-7.csv",
-  "2010 All Weekends": "data_2010_T_D6-7.csv",
+
+var question_dic = { // à modifier
+  "Happiness index" :"Y11_Q41",
+  "Satisfaction with education": "Y11_Q40a",
+  "Satisfaction with present job": "Y11_Q40b",
+  "Satisfaction with present standard of living": "Y11_Q40c",
+  "Satisfaction with accommodation": "Y11_Q40d",
+  "Satisfaction with family life": "Y11_Q40e",
+  "Satisfaction with health": "Y11_Q40f",
+  "Satisfaction with social life": "Y11_Q40g",
+  "Satisfaction with economic situation of the country": "Y11_Q40h"
 }
 
 function draw() {
     svg.selectAll(".europe")
-      //données associées à la carte
-        .datum(function(d) { return { country_code: d3.select(this).attr("id") }})
-        .data(dataset, function(d) { return d.country_code })
+       .datum(function(d) { return { countryCode: d3.select(this).attr("id") }})
+       .data(dataset, function(d) { return d.countryCode })
        .style("fill", "Blue")
-       .style("fill-opacity", function(d) {return color_opacity(d.GHI);
+       .style("fill-opacity", function(d) {
+            return color_opacity(d.mean);
        });
 };
 
-function setBarChart( doc,nameConst ,colorfill, colorfill2,dataset ){
 
-    var XrectConstrain = 0
-
-    var margin = {top:0, right:0, bottom:20, left:50};
-    var barWidth = 50
-    var svgWidth = 400;
-    var svgHeight = 100;
-
-    var yScale = d3.scaleLinear()
-    //.domain([0, d3.max(dataset1)])
-        .range([svgHeight - margin.top - margin.bottom, 0]);
-
-    var xScale = d3.scaleLinear()
-        .range([0, svgWidth - margin.right - margin.left]);
-
-
-    if (k>3){
-
-        var colorfill = colorfill
-        var colorfill2 = colorfill2
-
-        var barChartConst = d3.select("#"+nameConst)
-            .select("svg").remove()
-
-        var barChartConst = d3.select("#"+nameConst)
-            .append("svg")
-            .attr("width", svgWidth)
-            .attr("height", svgHeight)
-
-    } else {
-
-        var colorfill = colorfill2
-        var colorfill2 = colorfill
-
-        var barChartConst = d3.select("#"+nameConst)
-            .append("svg")
-            .attr("width", svgWidth)
-            .attr("height", svgHeight)
-
-    }
-    barChartConst.selectAll("rect")
-        .data(dataset)
-        .enter()
-        .append("rect")
-        .style("fill",colorfill)
-        .attr("y", function(d) {
-            return (svgHeight-d);
-        })
-        .attr("x", function(d) {
-            XrectConstrain = XrectConstrain + barWidth
-            return XrectConstrain })
-        .attr("height", function(d) {
-            return (d) })
-        .attr("width", barWidth)
-
-}
+/*function draw2() {
+    svg.selectAll(".europe")
+       .datum(function(d) { return { countryCode: d3.select(this).attr("id") }})
+       .data(dataset, function(d) { return d.countryCode })
+       .style("fill", function(d) {
+          if(d.meanMale > d.meanFemale)
+            return "#107FC9";
+          if (d.meanMale == d.meanFemale)
+            return "grey"
+          return "#CB5B7C";
+       })
+       .style("fill-opacity", 1);
+};*/
 
 function barchart() {
 
+  var Xrect = 0
 
-    var dataset1 = [50,20,30,50];
-    var dataset2 = [10,20,30,60];
+  // console.log("in barChart")
 
-    //define the balise name
-    k1 = k%4;
+  //https://medium.freecodecamp.org/how-to-create-your-first-bar-chart-with-d3-js-a0e8ea2df386
+  console.log("in barChart")
 
-    var nameConst = "comparisonConst"+k1
-    var nameUnConst= "comparisonUnConst"+k1
+  var margin = {top:0, right:0, bottom:20, left:50},
+    width  = 800,
+    height = 500;
 
-    console.log(k1)
-    console.log(k)
-    console.log(nameConst)
+  var svgWidth = 100;
+  var svgHeight = 100;
 
-    var doc1 = document.getElementById(nameConst);
-    doc1.style.position = "absolute";
-    doc1.style.top = 800 + 80*k1 + 'px';
-    doc1.style.left = 0 +'px';
+  //var dataset1 = [80, 100, 56, 120, 180, 30, 40, 120, 160];
+  var dataset1 = [10,20,30,40,50,60]; //,30,40,50,60];
+  var barPadding = 5;
+  var barWidth = (svgWidth / dataset1.length);
 
-    var doc2 = document.getElementById(nameUnConst);
-    doc2.style.position = "absolute";
-    doc2.style.top = 800 + 80*k1 + 'px';
-    doc2.style.left = 300 +'px';
+  rescalHeight=d3.scaleLinear()
+    .domain(d3.extent(dataset1,(y) => y )
+    .range([svgHeight,0]);
 
-    var colorfill = "Red"
-    var colorfill2 = "MidnightBlue"
-    setBarChart( doc1,nameConst ,colorfill, colorfill2,dataset1)
-    setBarChart( doc2,nameUnConst ,colorfill2, colorfill,dataset2 )
-    k = k+1;
-}
-/*
-function barchart0() {
-  var XrectConstrain = 0
-  var XrectUConstrain = 0
-  var margin = {top:0, right:0, bottom:20, left:50};
-  var barWidth = 50
-  var svgWidth = 400;
-  var svgHeight = 400;
+  //yScale.domain([0, d3.max(data, function(d){ return d["Median Price"]; })]);
 
-  var dataset1 = [50,20,30];
-  var dataset2 = [10,20,30];
 
-  var yScale = d3.scaleLinear()
-      //.domain([0, d3.max(dataset1)])
+  /*var tooltip = svg.append("barChart")
+            .attr("x", 100)
+            .attr("y", 100)
+            .attr("width",200)
+            .attr("height",200)
+            .attr("text-anchor", "middle");
+  */
+  //https://jrue.github.io/coding/2014/exercises/basicbarchart/
+  var yScale = d3.scale.linear()
       .range([svgHeight - margin.top - margin.bottom, 0]);
-  var xScale = d3.scaleLinear()
-          .range([0, svgWidth - margin.right - margin.left]);
 
+  //var xScale = d3.scale.ordinal()
+  //    .rangeRoundBands([0, width - margin.right - margin.left], .1);
 
-  //console.log(k)
-  //define the balise name
-  k1 = k%4;
-  var nameConst = "comparisonConst"+k1
-  var nameUnConst= "comparisonUnConst"+k1
-  console.log(k1)
-  console.log(k)
-  console.log(name)
+  var barChart = d3.select("#comparison")
+      .append("svg")
 
-  var doc1 = document.getElementById(nameConst);
-  doc1.style.position = "absolute";
-  doc1.style.top = 400 + 80*k1 + 'px';
-  doc1.style.left = 0 +'px';
-
-  var doc2 = document.getElementById(nameUnConst);
-  doc2.style.position = "absolute";
-  doc2.style.top = 400 + 80*k1 + 'px';
-  doc2.style.left = 200 +'px';
-
-  if (k>3){
-    var colorfill = "Red"
-    var colorfill2 = "MidnightBlue"
-    var barChartConst = d3.select("#"+nameConst)
-                   .select("svg").remove()
-
-    var barChartConst = d3.select("#"+nameConst)
-                   .append("svg")
-                   .attr("width", svgWidth)
-                   .attr("height", svgHeight)
-
-     var barChartUnConst = d3.select("#"+nameUnConst)
-                    .select("svg").remove()
-
-     var barChartUnConst = d3.select("#"+nameUnConst)
-                    .append("svg")
-                    .attr("width", svgWidth)
-                    .attr("height", svgHeight)
-
-  } else {
-    var colorfill = "MidnightBlue"
-    var colorfill2 = "Red"
-
-    var barChartUnConst = d3.select("#"+nameUnConst)
-                   .append("svg")
-                   .attr("width", svgWidth)
-                   .attr("height", svgHeight)
-
-     var barChartConst = d3.select("#"+nameConst)
-                    .append("svg")
-                    .attr("width", svgWidth)
-                    .attr("height", svgHeight)
-
-  }
-     barChartConst.selectAll("rect")
+      barChart.selectAll("rect")
         .data(dataset1)
         .enter()
           .append("rect")
-          .style("fill",colorfill)
+          .style("fill","MidnightBlue")
           .attr("y", function(d) {
-              return (svgHeight-d);
+              return 10
           })
           .attr("x", function(d) {
-              XrectConstrain = XrectConstrain + barWidth
-              return XrectConstrain })
+              Xrect = Xrect + 50
+              return Xrect
+           })
+          //.attr("height", function(d) {
+          //  return d;
+          //})
         .attr("height", function(d) {
-            return (d) })
-        .attr("width", barWidth)
-
-    barChartUnConst.selectAll("rect")
-      .data(dataset2)
-      .enter()
-        .append("rect")
-        .style("fill",colorfill2)
-        .attr("y", function(d) {
-            return (svgHeight-d);
+            return rescalHeight(d)
         })
-        .attr("x", function(d) {
-            XrectUConstrain = XrectUConstrain + barWidth
-            return XrectUConstrain })
-      .attr("height", function(d) {
-          return (d) })
-      .attr("width", barWidth)
+        .attr("transform", "rotate(-30)")
+        //.attr("height", function(d) {
+        //    return d
+        //})
+        .attr("width", 50);
+        //.text(function(d) { return d; });
 
-        k = k+1;
+        //.attr("width", barWidth - barPadding);
+        //.attr("transform", function (d, i) {
+        //     var translate = [barWidth * i, 0];
+        //     return "translate("+ translate +")";
+        //});
+
+
+    //https://bost.ocks.org/mike/bar/
+    /*
+    var data1 = [4, 8, 15, 16, 23, 42];
+
+    var xb = d3.scaleLinear()
+        .domain([0, d3.max(data1)])
+        .range([0, 420]);
+
+    svg.select("chart")
+      .data(data1)
+      .enter().append("chart")
+      .style("width", function(d) { return xb(d) + "px"; })
+      .text(function(d) { return d; });
+      */
+      /*
+      var data1 = [25,50];
+
+      var xb = d3.scaleLinear()
+          .domain([0, d3.max(data1)])
+          .range([0, 100]);
+
+      d3.select("#comparison")
+        .data(data1)
+        .enter()
+        .append("svg")
+        .append("rect")
+        .attr("width", function(d) { return xb(d) ; })
+        .attr("height", function(d) { return xb(d) ; })
+        /*.attr("width",(d) => {
+            if ( isNaN( xb(d) ) == false)  {
+              return(x(d.longitude))
+            }
+
+         })
+
+        //.attr("width",100)
+        //.attr("height",100)
+        //.attr("fill-opacity", 1)
+        .style("fill","MidnightBlue")
+        .text(function(d) { return d; });
+*/
+
+/*
+        svg.selectAll("rect")
+             .data(dataset)
+             .enter()
+             .append("rect")
+             .attr("width",1)
+             .attr("height",1)
+             .attr("fill-opacity", (d) => (d.density+100)/1000) // set the fill opacity
+             .style("fill","MidnightBlue")
+             .attr("x",(d) => {
+                 if ( isNaN( d.longitude ) == false)  {
+                   return(x(d.longitude))
+                 }
+
+              })
+
+  */
+
+/*
+        var data = [10, 5, 12, 15];
+
+         var width = 300
+            scaleFactor = 20,
+            barHeight = 30;
+
+         var graph = d3.select("body")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", barHeight * data.length);
+
+         var bar = graph.selectAll("g")
+            .data(data)
+            .enter()
+            .append("g")
+            .attr("transform", function(d, i) {
+               return "translate(0," + i * barHeight + ")";
+            });
+         bar.append("rect").attr("width", function(d) {
+            return d * scaleFactor;
+         })
+
+         .attr("height", barHeight - 1);
+
+         bar.append("text")
+            .attr("x", function(d) { return (d*scaleFactor); })
+            .attr("y", barHeight / 2)
+            .attr("dy", ".35em")
+            .text(function(d) { return d; });
+
+    */
 
     }
-*/
+
 function mouse_over() {
     svg.selectAll(".europe")
        .on("mousemove", function(d) {
-            d3.select("#country").text(isoCountries[d.country_code.toUpperCase()]);
+         d3.select("#country").text(isoCountries[d.countryCode.toUpperCase()]);
+            //$("#country").text(isoCountries[d.countryCode.toUpperCase()]);
 
-            d3.select("#GHI").text(d.GHI);
-            /*if (d.meanMale){
-              d3.select("#mean").text("Male:" + d.meanMale + "; Female:" + d.meanFemale);}
-            else{
-                console.log(d.mean);d3.select("#GHI").text(d.GHI);*/
-            //}
+            if (d.meanMale)
+              d3.select("#mean").text("Male:" + d.meanMale + "; Female:" + d.meanFemale);
+              //$("#mean").text("Male:" + d.meanMale + "; Female:" + d.meanFemale);
+            else
+              d3.select("#mean").text(d.mean);
+             // $("#mean").text(d.mean);
 
-            $('#info-container').offset(currentMousePos).show();
+             //d3.select("#info-container").
+             $('#info-container').offset(currentMousePos).show();
 
-            /*if(!d.mean && !d.meanMale){
+            if(!d.mean && !d.meanMale)
               d3.select("#info-container").hide = function() {
                 this.style('display', 'none');
-                return this;}
-            }*/
-
+                return this;
+            }
+             // d3.select("#info-container").hide();
+              //$("#info-container").hide();
        })
        .on("click", function(d){
-
+         //$("#comparison").text("selected country");
          barchart()
-         console.log("done barchart")
        });
 
     $('.europe').hover(function() {
+      //$("#info-container").show();
       d3.select("#info-container").show = function() {
         this.style('display', 'initial');
         return this;
@@ -278,48 +258,42 @@ function mouse_over() {
     })
 };
 
-function load_data(filtre) {
-  var tabName = filtre_dic[filtre];
-  d3.select("#h1").text(filtre); // change le titre avec le filtre choisi
+function load_data(theme) {
+  var questionCode = question_dic[theme];
+  d3.select("#h1").text(theme);
   //$("h1").text(theme);
   // load csv
 
   //if (questionCode) {
-    //load tout le dataset peut importe la question...
-    console.log(tabName);
-    d3.csv("output_tables/"+tabName)
-    .row((d,i) => {
+
+    d3.csv("data_2/all_questions.csv").row((d,i) => {
       return {
-        country: d.country,
-        country_code: d.country_code.toLowerCase(),
-        basic_needs: +d.basic_needs,
-        pro_study: +d.pro_study,
-        household_family: +d.household_family,
-        total_constraint: +d.total_constraint,
-        leisure_media: +d.leisure_media,
-        leisure_sports_outdoors: +d.leisure_sports_outdoors,
-        leisure_social_meetings: +d.leisure_social_meetings,
-        total_leisure: +d.total_leisure,
-        GHI : +d.GHI
+        countryCode: d.CountryCode.toLowerCase(),
+        questionCode: d.question_code,
+        subset: d.subset,
+        answer: d.answer,
+        mean: +d.Mean
       };
     }).get((error,rows)=>{
-    console.log("Loaded"+rows.length+"rows");
-    if(rows.length>0){
-        console.log("First row:",rows[0])
-        console.log("Last row:",rows[rows.length-1])
-    }
     dataset = rows;
-    var min = d3.min(rows, (row) => row.GHI );
-    var max = d3.max(rows, (row) => row.GHI );
-    console.log("min:",min)
-    console.log("max:",max)
-    color_opacity = d3.scaleLinear().domain(d3.extent(rows,(row)=> row.GHI)).range([0.2, 1]);
+    color_opacity = d3.scaleLinear()
+                        .domain(d3.extent(rows,(row)=> row.mean
+                      )).range([0.2, 1]);
 
+        var min = d3.min(rows, (row) => row.mean );
+        var max = d3.max(rows, (row) => row.mean );
+        d3.select("#grad1").text(min);
+        //$("#grad1").text(min);
+        d3.select("#grad2").text(max);
+        //$("#grad2").text(max);
+        //partie dédiée à l'échelle
+        //var text = "-webkit-linear-gradient(left,rgba(0,67,132,"+color_opacity(min)+"),rgba(0,67,132,"+color_opacity(max)+")";
+        //$("#gradient").css("background", text);
+        //$("#gradient-container").show();
         draw();
         mouse_over();
     });
   }
-
    /* dsv("data/all_questions.csv", function(d) {
         return {
             countryCode: d.CountryCode.toLowerCase(),
@@ -328,7 +302,7 @@ function load_data(filtre) {
             answer: d.answer,
             mean: +d.Mean
         }
-  }, function(error, rows) { // FILTRE QUESTION CODE POUR GARDER QUE LES DATA CORRESPONDANT AU FILTRE
+  }, function(error, rows) {
         console.log(rows[0]);
         dataset = rows.filter(function(row) {
             return row.questionCode == questionCode;
@@ -350,47 +324,53 @@ function load_data(filtre) {
 
         draw();
         mouse_over();
+
     });*/
+ /* } else {
+    $("#legend").text('Countries are colored in red when women are happier than men, blue when men are happier than women and grey when men and women have the same happiness score.')
+    dsv("data/happiness-male-female.csv", function(d) {
+      return {
+        countryCode: d.CountryCode.toLowerCase(),
+        meanMale: d.mean_male,
+        meanFemale: d.mean_female
+      }
+    }, function(error, rows) {
+        $("#gradient-container").hide();
+      dataset = rows;
+      console.log(rows[0]);
+      draw2();
+    });
+  }
 
+}*/
 
+//$(document).ready(function() {
   document.addEventListener("DOMContentLoaded", function(e) {
+    /* Your D3.js here */
+
     // add svg to page
     d3.xml("svg/europe.svg").mimeType("image/svg+xml").get(function(error, xml) {
         if (error) throw error;
         $("svg").replaceWith(xml.documentElement);
         svg = d3.select("svg");
 
-        load_data(filtre);
+        load_data("Happiness index");
+
     });
 
-  $(document).mousemove(function(event) {
+    // dropdown
+    $(".dropdown li").click(function(e) {
+      load_data(e.target.text);
+    });
+
+    // mouse position
+    $(document).mousemove(function(event) {
         currentMousePos.left = event.pageX - 70;
         currentMousePos.top = event.pageY + 20;
+    });
   });
-});
+//});
 
-
-function changeYear(event) {
-
-    var newYear = event.innerText;
-    year = newYear;
-    filtre = year+" "+gender+" "+day;
-    load_data(filtre);
-    //console.log(question_dic[year+" "+gender+" "+day])
-}
-function changeGender(event) {
-    var newGender = event.innerText;
-    gender = newGender;
-    filtre = year+" "+gender+" "+day;
-    load_data(filtre);
-
-}
-function changeDay(event) {
-    var newDay = event.innerText;
-    day = newDay;
-    filtre = year+" "+gender+" "+day;
-    load_data(filtre);
-}
 
 
 var isoCountries = {
@@ -575,7 +555,6 @@ var isoCountries = {
     'RE' : 'Reunion',
     'RO' : 'Romania',
     'RU' : 'Russian Federation',
-    'RU-KALININGRAD' : 'Russian Federation',
     'RW' : 'Rwanda',
     'BL' : 'Saint Barthelemy',
     'SH' : 'Saint Helena',
@@ -625,7 +604,7 @@ var isoCountries = {
     'UG' : 'Uganda',
     'UA' : 'Ukraine',
     'AE' : 'United Arab Emirates',
-    'UK' : 'United Kingdom',
+    'GB' : 'United Kingdom',
     'US' : 'United States',
     'UM' : 'United States Outlying Islands',
     'UY' : 'Uruguay',
