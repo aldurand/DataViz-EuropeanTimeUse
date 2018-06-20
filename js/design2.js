@@ -98,9 +98,6 @@ function setBarChart( doc,nameConst ,colorfill, colorfill2,dataset ){
             return (d) })
         .attr("width", barWidth)
 
-    k = k+1;
-
-
 }
 
 function barchart() {
@@ -109,7 +106,6 @@ function barchart() {
   var dataset1 = [50,20,30];
   var dataset2 = [10,20,30];
 
-  //console.log(k)
   //define the balise name
   k1 = k%4;
 
@@ -132,9 +128,9 @@ function barchart() {
 
   var colorfill = "Red"
   var colorfill2 = "MidnightBlue"
-  setBarChart( doc1,nameConst ,colorfill, colorfill2,dataset1 )
+  setBarChart( doc1,nameConst ,colorfill, colorfill2,dataset1)
   setBarChart( doc2,nameUnConst ,colorfill2, colorfill,dataset2 )
-
+  k = k+1;
 }
 /*
 function barchart0() {
@@ -273,6 +269,7 @@ function mouse_over() {
        })
        .on("click", function(d){
          barchart()
+         console.log("done barchart")
        });
 
     $('.europe').hover(function() {
