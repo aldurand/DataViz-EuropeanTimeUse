@@ -49,7 +49,7 @@ function setBarChart( doc,nameConst ,colorfill, colorfill2,dataset ){
   var margin = {top:0, right:0, bottom:20, left:50};
   var barWidth = 50
   var svgWidth = 400;
-  var svgHeight = 400;
+  var svgHeight = 100;
 
   var yScale = d3.scaleLinear()
       //.domain([0, d3.max(dataset1)])
@@ -103,8 +103,8 @@ function setBarChart( doc,nameConst ,colorfill, colorfill2,dataset ){
 function barchart() {
 
 
-  var dataset1 = [50,20,30];
-  var dataset2 = [10,20,30];
+  var dataset1 = [50,20,30,50];
+  var dataset2 = [10,20,30,60];
 
   //define the balise name
   k1 = k%4;
@@ -118,13 +118,13 @@ function barchart() {
 
   var doc1 = document.getElementById(nameConst);
   doc1.style.position = "absolute";
-  doc1.style.top = 400 + 80*k1 + 'px';
+  doc1.style.top = 800 + 80*k1 + 'px';
   doc1.style.left = 0 +'px';
 
   var doc2 = document.getElementById(nameUnConst);
   doc2.style.position = "absolute";
-  doc2.style.top = 400 + 80*k1 + 'px';
-  doc2.style.left = 200 +'px';
+  doc2.style.top = 800 + 80*k1 + 'px';
+  doc2.style.left = 300 +'px';
 
   var colorfill = "Red"
   var colorfill2 = "MidnightBlue"
