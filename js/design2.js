@@ -7,15 +7,11 @@ var year = "2000"
 var gender = "All"
 var day = "All"
 var filtre = "2000 All All"
-<<<<<<< HEAD
 var k = 0
 var barWidth = 50
 var svgWidth = 400;
 var svgHeight = 100;
 
-=======
-var k = 0;
->>>>>>> 6e4a3b7fb622f1c0a9fb830e6461450fd1d8558a
 // dictionnaire correspndance entre text filtre et texte table dans data
 // Quid de la gestion de plusieurs filtre -> plusieurs textes pour une table
 var filtre_dic = {
@@ -42,71 +38,59 @@ var filtre_dic = {
 function draw() {
     svg.selectAll(".europe")
       //données associées à la carte
-        .datum(function(d) { return { country_code: d3.select(this).attr("id") }})
-        .data(dataset, function(d) { return d.country_code })
+         .datum(function(d) { return { countryCode: d3.select(this).attr("id") }})
+        .data(dataset, function(d) { return d.country })
        .style("fill", "Blue")
-       .style("fill-opacity", function(d) {return color_opacity(d.GHI);
-       });
+      // .style("fill-opacity", function(d) {return color_opacity(d.mean);
+      // });
 };
 
-<<<<<<< HEAD
 
 function setBarChart( Frame ,message, nameConst ,colorfill, colorfill2,dataset ){
-=======
-function setBarChart( doc,nameConst ,colorfill, colorfill2,dataset ){
->>>>>>> 6e4a3b7fb622f1c0a9fb830e6461450fd1d8558a
 
-    var XrectConstrain = 0
+  var XrectConstrain = 0
 
-<<<<<<< HEAD
   var margin = {top:0, right:0, bottom:20, left:50};
 
-=======
-    var margin = {top:0, right:0, bottom:20, left:50};
-    var barWidth = 50
-    var svgWidth = 400;
-    var svgHeight = 100;
->>>>>>> 6e4a3b7fb622f1c0a9fb830e6461450fd1d8558a
 
-    var yScale = d3.scaleLinear()
-    //.domain([0, d3.max(dataset1)])
-        .range([svgHeight - margin.top - margin.bottom, 0]);
+  var yScale = d3.scaleLinear()
+      //.domain([0, d3.max(dataset1)])
+      .range([svgHeight - margin.top - margin.bottom, 0]);
 
-    var xScale = d3.scaleLinear()
-        .range([0, svgWidth - margin.right - margin.left]);
+  var xScale = d3.scaleLinear()
+          .range([0, svgWidth - margin.right - margin.left]);
 
  if ( k == 0 ) {
    Frame.innerHTML += message ;
   }
 
-    if (k>3){
+  if (k>3){
 
-        var colorfill = colorfill
-        var colorfill2 = colorfill2
+    //var colorfill = colorfill
+    //var colorfill2 = colorfill2
 
-        var barChartConst = d3.select("#"+nameConst)
-            .select("svg").remove()
+    var barChartConst = d3.select("#"+nameConst)
+                   .select("svg").remove()
 
-        var barChartConst = d3.select("#"+nameConst)
-            .append("svg")
-            .attr("width", svgWidth)
-            .attr("height", svgHeight)
+    var barChartConst = d3.select("#"+nameConst)
+                   .append("svg")
+                   .attr("width", svgWidth)
+                   .attr("height", svgHeight)
 
-    } else {
+  } else {
 
-        var colorfill = colorfill2
-        var colorfill2 = colorfill
+    //var colorfill = colorfill
+    //var colorfill2 = colorfill2
 
-        var barChartConst = d3.select("#"+nameConst)
-            .append("svg")
-            .attr("width", svgWidth)
-            .attr("height", svgHeight)
+     var barChartConst = d3.select("#"+nameConst)
+                    .append("svg")
+                    .attr("width", svgWidth)
+                    .attr("height", svgHeight)
 
-    }
-    barChartConst.selectAll("rect")
+  }
+     barChartConst.selectAll("rect")
         .data(dataset)
         .enter()
-<<<<<<< HEAD
           .append("rect")
           .style("fill",colorfill)
           .attr("y", function(d) {
@@ -118,229 +102,99 @@ function setBarChart( doc,nameConst ,colorfill, colorfill2,dataset ){
           .attr("height", function(d) {
               return (d) })
           .attr("width", barWidth)
-=======
-        .append("rect")
-        .style("fill",colorfill)
-        .attr("y", function(d) {
-            return (svgHeight-d);
-        })
-        .attr("x", function(d) {
-            XrectConstrain = XrectConstrain + barWidth
-            return XrectConstrain })
-        .attr("height", function(d) {
-            return (d) })
-        .attr("width", barWidth)
->>>>>>> 6e4a3b7fb622f1c0a9fb830e6461450fd1d8558a
+          .attr("rx", 5)         // set the x corner curve radius
+          .attr("ry", 5)
+
+    barChartConst.selectAll("text")
+          .text("kvbjhv");
 
 }
 
 function barchart() {
 
 
-<<<<<<< HEAD
   var dataset1 = [50,20,50];
   var dataset2 = [10,20,60];
-=======
-    var dataset1 = [50,20,30,50];
-    var dataset2 = [10,20,30,60];
->>>>>>> 6e4a3b7fb622f1c0a9fb830e6461450fd1d8558a
 
-    //define the balise name
-    k1 = k%4;
+  //define the balise name
+  k1 = k%4;
 
-    var nameConst = "comparisonConst"+k1
-    var nameUnConst= "comparisonUnConst"+k1
+  var nameConst = "comparisonConst"+k1
+  var nameUnConst= "comparisonUnConst"+k1
 
-    console.log(k1)
-    console.log(k)
-    console.log(nameConst)
+  console.log(k1)
+  console.log(k)
+  console.log(nameConst)
 
-    var doc1 = document.getElementById(nameConst);
-    doc1.style.position = "absolute";
-    doc1.style.top = 800 + 80*k1 + 'px';
-    doc1.style.left = 0 +'px';
+  var ConsTop = 200
+  var ConsLeft = 650
 
-<<<<<<< HEAD
+  var doc1 = document.getElementById(nameConst);
+  doc1.style.position = "absolute";
+  //doc1.style.top = 800 + 80*k1 + 'px';
+  //doc1.style.left = 0 +'px';
+  doc1.style.top = ConsTop + 80*k1 + 'px';
+  doc1.style.left = ConsLeft +'px';
+  doc1.innerHTML = "Contry" +k
+
   var doc2 = document.getElementById(nameUnConst);
   doc2.style.position = "absolute";
-  doc2.style.top = 800 + 80*k1 + 'px';
-  doc2.style.left = 300 +'px';
+  //doc2.style.top = 800 + 80*k1 + 'px';
+  //doc2.style.left = 400 +'px';
+
+  doc2.style.top = ConsTop + 80*k1 + 'px';
+  doc2.style.left = ConsLeft + 350 +'px';
 
   nameIdC = 'titleUnconstraint'
   var FrameUnconst = document.getElementById(nameIdC);
   FrameUnconst.style.position = "absolute";
-  FrameUnconst.style.top = 750 + 'px';
-  FrameUnconst.style.left = svgWidth/2 +'px';
+  FrameUnconst.style.top = ConsTop - 50 + 'px';
+  FrameUnconst.style.left = ConsLeft + 350 + svgWidth/4 +'px';
   FrameUnconst.style.textAlign = "left";
-  messageU = "unconstrained"
+  //messageU = "Unconstrained activities <p style="text-indent: 5em;" activity1 "
+  messageU = "<strong> Unconstrained activities </strong><p> "
+            +"Activity1  &nbsp &nbsp &nbsp  Activity2 &nbsp &nbsp &nbsp Activity3"
+
   //FrameUnconst.innerHTML += 'Unconstrained';
 
   nameIdUC = 'titleConstraint'
   var FrameConst = document.getElementById(nameIdUC);
   FrameConst.style.position = "absolute";
-  FrameConst.style.top = 750 + 'px';
-  FrameConst.style.left = 300 + svgWidth/2 +'px';
-  FrameConst.style.textAlign = "left";
-  //FrameConst.innerHTML += 'Constrained';
-  messageC = "constrained"
+  FrameConst.style.top = ConsTop - 50 + 'px';
+  FrameConst.style.left = ConsLeft - 50 + svgWidth/2 +'px';
+  FrameConst.style.textAlign = "left"
 
-  /*name1 = 'title1'
-  var FrameConst = document.getElementById(nameIdUC);
-  FrameConst.style.position = "absolute";
-  FrameConst.style.top = 750 + 'px';
-  FrameConst.style.left = 300 + svgWidth/2 +'px';
-  FrameConst.style.textAlign = "left";
   //FrameConst.innerHTML += 'Constrained';
-  messageC = "constrained"
-  */
+  messageC = "<strong> Constrained activities </strong><p> "
+            +"Activity1  &nbsp &nbsp &nbsp  Activity2 &nbsp &nbsp &nbsp Activity3"
 
-  var colorfill = "Red"
-  var colorfill2 = "MidnightBlue"
+  var colorfill = "DeepPink"
+  var colorfill2 = "Aqua"
   setBarChart( FrameConst,messageC,nameConst ,colorfill, colorfill2,dataset1)
-  setBarChart( FrameUnconst,messageU , nameConst , colorfill2, colorfill,dataset2 )
+  setBarChart( FrameUnconst,messageU , nameUnConst , colorfill2, colorfill,dataset2 )
   k = k+1;
-=======
-    var doc2 = document.getElementById(nameUnConst);
-    doc2.style.position = "absolute";
-    doc2.style.top = 800 + 80*k1 + 'px';
-    doc2.style.left = 300 +'px';
-
-    var colorfill = "Red"
-    var colorfill2 = "MidnightBlue"
-    setBarChart( doc1,nameConst ,colorfill, colorfill2,dataset1)
-    setBarChart( doc2,nameUnConst ,colorfill2, colorfill,dataset2 )
-    k = k+1;
->>>>>>> 6e4a3b7fb622f1c0a9fb830e6461450fd1d8558a
 }
-/*
-function barchart0() {
-  var XrectConstrain = 0
-  var XrectUConstrain = 0
-  var margin = {top:0, right:0, bottom:20, left:50};
-  var barWidth = 50
-  var svgWidth = 400;
-  var svgHeight = 400;
 
-  var dataset1 = [50,20,30];
-  var dataset2 = [10,20,30];
-
-  var yScale = d3.scaleLinear()
-      //.domain([0, d3.max(dataset1)])
-      .range([svgHeight - margin.top - margin.bottom, 0]);
-  var xScale = d3.scaleLinear()
-          .range([0, svgWidth - margin.right - margin.left]);
-
-
-  //console.log(k)
-  //define the balise name
-  k1 = k%4;
-  var nameConst = "comparisonConst"+k1
-  var nameUnConst= "comparisonUnConst"+k1
-  console.log(k1)
-  console.log(k)
-  console.log(name)
-
-  var doc1 = document.getElementById(nameConst);
-  doc1.style.position = "absolute";
-  doc1.style.top = 400 + 80*k1 + 'px';
-  doc1.style.left = 0 +'px';
-
-  var doc2 = document.getElementById(nameUnConst);
-  doc2.style.position = "absolute";
-  doc2.style.top = 400 + 80*k1 + 'px';
-  doc2.style.left = 200 +'px';
-
-  if (k>3){
-    var colorfill = "Red"
-    var colorfill2 = "MidnightBlue"
-    var barChartConst = d3.select("#"+nameConst)
-                   .select("svg").remove()
-
-    var barChartConst = d3.select("#"+nameConst)
-                   .append("svg")
-                   .attr("width", svgWidth)
-                   .attr("height", svgHeight)
-
-     var barChartUnConst = d3.select("#"+nameUnConst)
-                    .select("svg").remove()
-
-     var barChartUnConst = d3.select("#"+nameUnConst)
-                    .append("svg")
-                    .attr("width", svgWidth)
-                    .attr("height", svgHeight)
-
-  } else {
-    var colorfill = "MidnightBlue"
-    var colorfill2 = "Red"
-
-    var barChartUnConst = d3.select("#"+nameUnConst)
-                   .append("svg")
-                   .attr("width", svgWidth)
-                   .attr("height", svgHeight)
-
-     var barChartConst = d3.select("#"+nameConst)
-                    .append("svg")
-                    .attr("width", svgWidth)
-                    .attr("height", svgHeight)
-
-  }
-     barChartConst.selectAll("rect")
-        .data(dataset1)
-        .enter()
-          .append("rect")
-          .style("fill",colorfill)
-          .attr("y", function(d) {
-              return (svgHeight-d);
-          })
-          .attr("x", function(d) {
-              XrectConstrain = XrectConstrain + barWidth
-              return XrectConstrain })
-        .attr("height", function(d) {
-            return (d) })
-        .attr("width", barWidth)
-
-    barChartUnConst.selectAll("rect")
-      .data(dataset2)
-      .enter()
-        .append("rect")
-        .style("fill",colorfill2)
-        .attr("y", function(d) {
-            return (svgHeight-d);
-        })
-        .attr("x", function(d) {
-            XrectUConstrain = XrectUConstrain + barWidth
-            return XrectUConstrain })
-      .attr("height", function(d) {
-          return (d) })
-      .attr("width", barWidth)
-
-        k = k+1;
-
-    }
-*/
 function mouse_over() {
     svg.selectAll(".europe")
        .on("mousemove", function(d) {
-            d3.select("#country").text(isoCountries[d.country_code.toUpperCase()]);
+         d3.select("#country").text(isoCountries[d.countryCode.toUpperCase()]);
 
-            d3.select("#GHI").text(d.GHI);
-            /*if (d.meanMale){
-              d3.select("#mean").text("Male:" + d.meanMale + "; Female:" + d.meanFemale);}
-            else{
-                console.log(d.mean);d3.select("#GHI").text(d.GHI);*/
-            //}
+            if (d.meanMale)
+              d3.select("#mean").text("Male:" + d.meanMale + "; Female:" + d.meanFemale);
+            else
+              d3.select("#mean").text(d.mean);
 
-            $('#info-container').offset(currentMousePos).show();
+             $('#info-container').offset(currentMousePos).show();
 
-            /*if(!d.mean && !d.meanMale){
+            if(!d.mean && !d.meanMale)
               d3.select("#info-container").hide = function() {
                 this.style('display', 'none');
-                return this;}
-            }*/
+                return this;
+            }
 
        })
        .on("click", function(d){
-
          barchart()
          console.log("done barchart")
        });
@@ -367,12 +221,11 @@ function load_data(filtre) {
 
   //if (questionCode) {
     //load tout le dataset peut importe la question...
-    console.log(tabName);
+    console.log(tabName)
     d3.csv("output_tables/"+tabName)
     .row((d,i) => {
       return {
         country: d.country,
-        country_code: d.country_code.toLowerCase(),
         basic_needs: +d.basic_needs,
         pro_study: +d.pro_study,
         household_family: +d.household_family,
@@ -452,25 +305,21 @@ function load_data(filtre) {
 
 
 function changeYear(event) {
-
-    var newYear = event.innerText;
-    year = newYear;
-    filtre = year+" "+gender+" "+day;
-    load_data(filtre);
-    //console.log(question_dic[year+" "+gender+" "+day])
+  var newYear = event.innerText;
+  year = newYear;
+  filtre = year+" "+gender+" "+day
+  console.log(question_dic[year+" "+gender+" "+day])
 }
 function changeGender(event) {
-    var newGender = event.innerText;
-    gender = newGender;
-    filtre = year+" "+gender+" "+day;
-    load_data(filtre);
+  var newGender = event.innerText;
+  gender = newGender;
+  filtre = year+" "+gender+" "+day
 
 }
 function changeDay(event) {
-    var newDay = event.innerText;
-    day = newDay;
-    filtre = year+" "+gender+" "+day;
-    load_data(filtre);
+  var newDay = event.innerText;
+  day = newDay;
+  filtre = year+" "+gender+" "+day
 }
 
 
@@ -656,7 +505,6 @@ var isoCountries = {
     'RE' : 'Reunion',
     'RO' : 'Romania',
     'RU' : 'Russian Federation',
-    'RU-KALININGRAD' : 'Russian Federation',
     'RW' : 'Rwanda',
     'BL' : 'Saint Barthelemy',
     'SH' : 'Saint Helena',
@@ -706,7 +554,7 @@ var isoCountries = {
     'UG' : 'Uganda',
     'UA' : 'Ukraine',
     'AE' : 'United Arab Emirates',
-    'UK' : 'United Kingdom',
+    'GB' : 'United Kingdom',
     'US' : 'United States',
     'UM' : 'United States Outlying Islands',
     'UY' : 'Uruguay',
