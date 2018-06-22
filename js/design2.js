@@ -7,6 +7,8 @@ var year = "2000"
 var gender = "All"
 var day = "All"
 var filtre = "2000 All All"
+
+// for bar chart
 var k = 0
 var barWidth = 50
 var svgWidth = 400;
@@ -50,12 +52,12 @@ function setBarChart( Frame ,message, nameConst ,colorfill, colorfill2,dataset )
 
   var XrectConstrain = 0
 
-  var margin = {top:0, right:0, bottom:20, left:50};
+  var margin = {top:10, right:0, bottom:20, left:50};
 
 
   var yScale = d3.scaleLinear()
-      //.domain([0, d3.max(dataset1)])
-      .range([svgHeight - margin.top - margin.bottom, 0]);
+      .domain([0, d3.max(dataset)])
+      .range([svgHeight - margin.top - margin.bottom,0]);
 
   var xScale = d3.scaleLinear()
           .range([0, svgWidth - margin.right - margin.left]);
@@ -64,7 +66,7 @@ function setBarChart( Frame ,message, nameConst ,colorfill, colorfill2,dataset )
    Frame.innerHTML += message ;
   }
 
-  if (k>3){
+  if (k>2){
 
     //var colorfill = colorfill
     //var colorfill2 = colorfill2
@@ -94,55 +96,49 @@ function setBarChart( Frame ,message, nameConst ,colorfill, colorfill2,dataset )
           .append("rect")
           .style("fill",colorfill)
           .attr("y", function(d) {
-              return (svgHeight-d);
+              return (yScale(d));
           })
           .attr("x", function(d) {
               XrectConstrain = XrectConstrain + barWidth*1.8
               return XrectConstrain })
           .attr("height", function(d) {
-              return (d) })
+              //return (d) })
+              return( svgHeight - margin.top - margin.bottom - yScale(d)) })
           .attr("width", barWidth)
-          .attr("rx", 5)         // set the x corner curve radius
-          .attr("ry", 5)
+          .attr("rx", 10) // set the x corner curve radius
+          .attr("ry", 10)
 
-    barChartConst.selectAll("text")
-          .text("kvbjhv");
 
 }
 
-function barchart() {
+function barchart(datasetC,datasetUC,country) {
 
 
-  var dataset1 = [50,20,50];
-  var dataset2 = [10,20,60];
+  //var dataset1 = [50,20,50];
+  //Òvar dataset2 = [10,20,60];
 
   //define the balise name
-  k1 = k%4;
+  k1 = k%3;
 
   var nameConst = "comparisonConst"+k1
   var nameUnConst= "comparisonUnConst"+k1
 
-  console.log(k1)
-  console.log(k)
-  console.log(nameConst)
-
-  var ConsTop = 200
+  var ConsTop = 300
   var ConsLeft = 650
 
   var doc1 = document.getElementById(nameConst);
   doc1.style.position = "absolute";
   //doc1.style.top = 800 + 80*k1 + 'px';
   //doc1.style.left = 0 +'px';
-  doc1.style.top = ConsTop + 80*k1 + 'px';
+  doc1.style.top = ConsTop + 100*k1 + 'px';
   doc1.style.left = ConsLeft +'px';
-  doc1.innerHTML = "Contry" +k
+  doc1.innerHTML = "<strong> " + country + "</strong> "
 
   var doc2 = document.getElementById(nameUnConst);
   doc2.style.position = "absolute";
   //doc2.style.top = 800 + 80*k1 + 'px';
   //doc2.style.left = 400 +'px';
-
-  doc2.style.top = ConsTop + 80*k1 + 'px';
+  doc2.style.top = ConsTop +25 +100*k1 + 'px';
   doc2.style.left = ConsLeft + 350 +'px';
 
   nameIdC = 'titleUnconstraint'
@@ -153,7 +149,8 @@ function barchart() {
   FrameUnconst.style.textAlign = "left";
   //messageU = "Unconstrained activities <p style="text-indent: 5em;" activity1 "
   messageU = "<strong> Unconstrained activities </strong><p> "
-            +"Activity1  &nbsp &nbsp &nbsp  Activity2 &nbsp &nbsp &nbsp Activity3"
+            +"Media  &nbsp &nbsp &nbsp &nbsp  Sport &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp Social"
+
 
   //FrameUnconst.innerHTML += 'Unconstrained';
 
@@ -161,17 +158,17 @@ function barchart() {
   var FrameConst = document.getElementById(nameIdUC);
   FrameConst.style.position = "absolute";
   FrameConst.style.top = ConsTop - 50 + 'px';
-  FrameConst.style.left = ConsLeft - 50 + svgWidth/2 +'px';
+  FrameConst.style.left = ConsLeft - 50 + svgWidth/4 +'px';
   FrameConst.style.textAlign = "left"
 
   //FrameConst.innerHTML += 'Constrained';
   messageC = "<strong> Constrained activities </strong><p> "
-            +"Activity1  &nbsp &nbsp &nbsp  Activity2 &nbsp &nbsp &nbsp Activity3"
+            +"&nbsp &nbsp &nbsp &nbsp &nbsp Basic  &nbsp &nbsp &nbsp  Professional &nbsp &nbsp &nbsp House"
 
   var colorfill = "DeepPink"
   var colorfill2 = "Aqua"
-  setBarChart( FrameConst,messageC,nameConst ,colorfill, colorfill2,dataset1)
-  setBarChart( FrameUnconst,messageU , nameUnConst , colorfill2, colorfill,dataset2 )
+  setBarChart( FrameConst,messageC,nameConst ,colorfill, colorfill2,datasetC)
+  setBarChart( FrameUnconst,messageU , nameUnConst , colorfill2, colorfill,datasetUC )
   k = k+1;
 }
 
@@ -195,23 +192,42 @@ function mouse_over() {
 
        })
        .on("click", function(d){
-         barchart()
-         console.log("done barchart")
-       });
+         var countryName = isoCountries[d.countryCode.toUpperCase()];
 
-    $('.europe').hover(function() {
-      d3.select("#info-container").show = function() {
-        this.style('display', 'initial');
-        return this;
+         var idx = 0
+         var datasetUC = new Array();
+         var datasetC = new Array();
+         var data ;
+         for (var elt in dataset) {
+           countryRed = dataset[elt]["country"]
+           if (countryRed == countryName ){
+             data = dataset[elt]["leisure_media"]
+             datasetUC.push(data)
+             data = dataset[elt]["leisure_sports_outdoors"]
+             datasetUC.push(data)
+             data = dataset[elt]["leisure_social_meetings"]
+             datasetUC.push(data)
+             data = dataset[elt]["basic_needs"]
+             datasetC.push(data)
+             data = dataset[elt]["pro_study"]
+             datasetC.push(data)
+             data = dataset[elt]["household_family"]
+             datasetC.push(data)
+
+           }
+         }
+
+         //console.log(countryName)
+         //console.log("data const")
+         //console.log(datasetC)
+         
+         barchart(datasetC,datasetUC,countryName)
+
+         //console.log("data Uconst")
+         //console.log(datasetUC)
+         //barchart(datasetC,datasetUC,countryName)
+      });
     }
-    }, function() {
-     // $("#info-container").hide();
-     d3.select("#info-container").hide = function() {
-      this.style('display', 'none');
-      return this;
-  }
-    })
-};
 
 function load_data(filtre) {
   var tabName = filtre_dic[filtre];
