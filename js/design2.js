@@ -40,13 +40,6 @@ var textMax;
 // END Xavier Var
 
 
-// BAR CHART START
-var k = 0
-var barWidth = 50;
-var svgWidth = 400;
-var svgHeight = 100;
-// BAR CHART STOP
-
 // dictionnaire correspndance entre text filtre et texte table dans data
 // Quid de la gestion de plusieurs filtre -> plusieurs textes pour une table
 var filtre_dic = {
@@ -203,7 +196,6 @@ function draw() {
     });
 };
 
-<<<<<<< HEAD
 
 
 function linspace(start, end, n) {
@@ -227,19 +219,7 @@ function updateColorScale() {
 
 
 
-=======
-// BARCHART - START
-function setBarChart( Frame , nameConst ,colorfill, colorfill2,dataset,max_time){
 
-  var XrectConstrain = 0
-
-  var margin = {top:10, right:0, bottom:20, left:50};
->>>>>>> aac51ddbd0e152ed000438d31e2fbd22bc6b7ff2
-
-  console.log("max_time")
-  console.log(max_time)
-  console.log("d3.max(dataset)")
-  console.log(d3.max(dataset))
 
 
 
@@ -297,27 +277,18 @@ function setBarChart( Frame , nameConst ,colorfill, colorfill2,dataset,max_time)
           .append("rect")
           .style("fill",colorfill)
           .attr("y", function(d) {
-<<<<<<< HEAD
             if (isNaN(d) == false) {
               return (yScale(d));
             }
-=======
-              return (yScale(d,max_time));
->>>>>>> aac51ddbd0e152ed000438d31e2fbd22bc6b7ff2
           })
           .attr("x", function(d) {
               XrectConstrain = XrectConstrain + barWidth*1.8
               return XrectConstrain })
           .attr("height", function(d) {
-<<<<<<< HEAD
             if (isNaN(d) == false) {
               return( svgHeight - margin.top - margin.bottom - yScale(d));
             }
           })
-=======
-              //return (d) })
-              return( svgHeight - margin.top - margin.bottom - yScale(d)) })
->>>>>>> aac51ddbd0e152ed000438d31e2fbd22bc6b7ff2
           .attr("width", barWidth)
           .attr("rx", 10) // set the x corner curve radius
           .attr("ry", 10)
@@ -334,13 +305,8 @@ function barchart(datasetC,datasetUC,country,ghi,max_time_leisure,max_time_const
   var nameUnConst= "comparisonUnConst"+k1
   var nameCountry= "countryName"+k1
 
-<<<<<<< HEAD
   var ConsTop = 260
   var ConsLeft = 730
-=======
-  var ConsTop = 300
-  var ConsLeft = 700
->>>>>>> aac51ddbd0e152ed000438d31e2fbd22bc6b7ff2
 
   var doc1 = document.getElementById(nameConst);
   doc1.style.position = "absolute";
@@ -350,33 +316,18 @@ function barchart(datasetC,datasetUC,country,ghi,max_time_leisure,max_time_const
   var doc2 = document.getElementById(nameUnConst);
   doc2.style.position = "absolute";
   doc2.style.top = ConsTop + 25 +100*k1 + 'px';
-<<<<<<< HEAD
   doc2.style.left = ConsLeft  + 350 - 50 +'px';
 
   // TO DO : COMMENT
   // Just for test the ghi is not correct in the map
-=======
-  doc2.style.left = ConsLeft  + 350 +'px';
-
-  // TO DO : COMMENT
-  // Just for test the ghi is not correct in the map
-  ghi = 0.5
->>>>>>> aac51ddbd0e152ed000438d31e2fbd22bc6b7ff2
   var doc3 = document.getElementById(nameCountry);
   doc3.style.position = "absolute";
   //doc2.style.top = 800 + 80*k1 + 'px';
   //doc2.style.left = 400 +'px';
-<<<<<<< HEAD
   doc3.style.top = ConsTop + 25 + 30 +100*k1 + 'px';
   doc3.style.right = ConsLeft - 100 + 'px';
   doc3.style.textAlign = "right"
   doc3.innerHTML =  country + "<br>" + "<strong>" + Math.round(ghi*1000)/1000 + "</strong>"
-=======
-  doc3.style.top = ConsTop +25 +100*k1 + 'px';
-  doc3.style.left = ConsLeft +'px';
-  doc3.style.textAlign = "right"
-  doc3.innerHTML =  country + "<p>" + "<strong>" + ghi + "</strong>"
->>>>>>> aac51ddbd0e152ed000438d31e2fbd22bc6b7ff2
 
   nameIdUC = 'graphUnconstraint'
   var FrameUnconst = document.getElementById(nameIdUC);
@@ -391,11 +342,7 @@ function barchart(datasetC,datasetUC,country,ghi,max_time_leisure,max_time_const
   var TitleUnconst = document.getElementById(nameTitleUC);
   TitleUnconst.style.position = "absolute";
   TitleUnconst.style.top = ConsTop - 50 + 'px';
-<<<<<<< HEAD
   TitleUnconst.style.left = ConsLeft + 350 - 50 + svgWidth/4 +'px';
-=======
-  TitleUnconst.style.left = ConsLeft + 350 + svgWidth/4 +'px';
->>>>>>> aac51ddbd0e152ed000438d31e2fbd22bc6b7ff2
   TitleUnconst.style.textAlign = "left";
   TitleUnconst.innerHTML = messageU
 
@@ -421,13 +368,8 @@ function barchart(datasetC,datasetUC,country,ghi,max_time_leisure,max_time_const
   TitleConst.innerHTML = messageC
 
 
-<<<<<<< HEAD
   var colorfill = '#d53e4f' //"DeepPink"
   var colorfill2 = '#3288bd' //"Aqua"
-=======
-  var colorfill = "DeepPink"
-  var colorfill2 = "Aqua"
->>>>>>> aac51ddbd0e152ed000438d31e2fbd22bc6b7ff2
   setBarChart( FrameConst,nameConst ,colorfill, colorfill2,datasetC,max_time_constraint)
   setBarChart( FrameUnconst , nameUnConst , colorfill2, colorfill,datasetUC,max_time_leisure)
   k = k+1;
@@ -495,7 +437,6 @@ function mouse_over() {
  });
 
 
-<<<<<<< HEAD
 
     // .on("click", function(d) {
     //   barchart()
@@ -514,90 +455,6 @@ function mouse_over() {
         return this;
       }
     })
-=======
-       })
-       // BAR CHART START
-       .on("click", function(d){
-         var countryName = isoCountries[d.countryCode.toUpperCase()];
-
-         var idx = 0;
-         var max_time;
-         var datasetUC = new Array();
-         var datasetC = new Array();
-         var data ;
-         for (var elt in dataset) {
-           countryRed = dataset[elt]["country"]
-           if (countryRed == countryName ){
-             data = dataset[elt]["leisure_media"]
-             datasetUC.push(data)
-             data = dataset[elt]["leisure_sports_outdoors"]
-             datasetUC.push(data)
-             data = dataset[elt]["leisure_social_meetings"]
-             datasetUC.push(data)
-             data = dataset[elt]["basic_needs"]
-             datasetC.push(data)
-             data = dataset[elt]["pro_study"]
-             datasetC.push(data)
-             data = dataset[elt]["household_family"]
-             datasetC.push(data)
-             max_time_leisure = dataset[elt]["total_leisure"]
-             max_time_constraint = dataset[elt]["total_constraint"]
-           }
-         }
-
-         console.log(countryName)
-         console.log("data const")
-         console.log(datasetC)
-
-         barchart(datasetC,datasetUC,countryName,d.GHI,max_time_leisure,max_time_constraint)
-
-         console.log("data Uconst")
-         console.log(datasetUC)
-         //barchart(datasetC,datasetUC,countryName)
-      });
-    }
-
-// BAR CHART STOP
-function load_data(filtre) {
-  var tabName = filtre_dic[filtre];
-  d3.select("#h1").text(filtre); // change le titre avec le filtre choisi
-  //$("h1").text(theme);
-  // load csv
-
-  //if (questionCode) {
-    //load tout le dataset peut importe la question...
-    console.log(tabName)
-    d3.csv("output_tables/"+tabName)
-    .row((d,i) => {
-      return {
-        country: d.country,
-        basic_needs: +d.basic_needs,
-        pro_study: +d.pro_study,
-        household_family: +d.household_family,
-        total_constraint: +d.total_constraint,
-        leisure_media: +d.leisure_media,
-        leisure_sports_outdoors: +d.leisure_sports_outdoors,
-        leisure_social_meetings: +d.leisure_social_meetings,
-        total_leisure: +d.total_leisure,
-        GHI : +d.GHI
-      };
-    }).get((error,rows)=>{
-    console.log("Loaded"+rows.length+"rows");
-    if(rows.length>0){
-        console.log("First row:",rows[0])
-        console.log("Last row:",rows[rows.length-1])
-    }
-    dataset = rows;
-    var min = d3.min(rows, (row) => row.GHI );
-    var max = d3.max(rows, (row) => row.GHI );
-    console.log("min:",min)
-    console.log("max:",max)
-    color_opacity = d3.scaleLinear().domain(d3.extent(rows,(row)=> row.GHI)).range([0.2, 1]);
-
-        draw();
-        mouse_over();
-    });
->>>>>>> aac51ddbd0e152ed000438d31e2fbd22bc6b7ff2
   }
 
 
@@ -728,7 +585,6 @@ function changeAct(event) {
 
 
 var isoCountries = {
-<<<<<<< HEAD
   'AF' : 'Afghanistan',
   'AX' : 'Aland Islands',
   'AL' : 'Albania',
@@ -975,251 +831,4 @@ var isoCountries = {
   'YE' : 'Yemen',
   'ZM' : 'Zambia',
   'ZW' : 'Zimbabwe'
-=======
-    'AF' : 'Afghanistan',
-    'AX' : 'Aland Islands',
-    'AL' : 'Albania',
-    'DZ' : 'Algeria',
-    'AS' : 'American Samoa',
-    'AD' : 'Andorra',
-    'AO' : 'Angola',
-    'AI' : 'Anguilla',
-    'AQ' : 'Antarctica',
-    'AG' : 'Antigua And Barbuda',
-    'AR' : 'Argentina',
-    'AM' : 'Armenia',
-    'AW' : 'Aruba',
-    'AU' : 'Australia',
-    'AT' : 'Austria',
-    'AZ' : 'Azerbaijan',
-    'BS' : 'Bahamas',
-    'BH' : 'Bahrain',
-    'BD' : 'Bangladesh',
-    'BB' : 'Barbados',
-    'BY' : 'Belarus',
-    'BE' : 'Belgium',
-    'BZ' : 'Belize',
-    'BJ' : 'Benin',
-    'BM' : 'Bermuda',
-    'BT' : 'Bhutan',
-    'BO' : 'Bolivia',
-    'BA' : 'Bosnia',
-    'BW' : 'Botswana',
-    'BV' : 'Bouvet Island',
-    'BR' : 'Brazil',
-    'IO' : 'British Indian Ocean Territory',
-    'BN' : 'Brunei Darussalam',
-    'BG' : 'Bulgaria',
-    'BF' : 'Burkina Faso',
-    'BI' : 'Burundi',
-    'KH' : 'Cambodia',
-    'CM' : 'Cameroon',
-    'CA' : 'Canada',
-    'CV' : 'Cape Verde',
-    'KY' : 'Cayman Islands',
-    'CF' : 'Central African Republic',
-    'TD' : 'Chad',
-    'CL' : 'Chile',
-    'CN' : 'China',
-    'CX' : 'Christmas Island',
-    'CC' : 'Cocos (Keeling) Islands',
-    'CO' : 'Colombia',
-    'KM' : 'Comoros',
-    'CG' : 'Congo',
-    'CD' : 'Congo, Democratic Republic',
-    'CK' : 'Cook Islands',
-    'CR' : 'Costa Rica',
-    'CI' : 'Cote D\'Ivoire',
-    'HR' : 'Croatia',
-    'CU' : 'Cuba',
-    'CY' : 'Cyprus',
-    'CZ' : 'Czech Rep',
-    'DK' : 'Denmark',
-    'DJ' : 'Djibouti',
-    'DM' : 'Dominica',
-    'DO' : 'Dominican Republic',
-    'EC' : 'Ecuador',
-    'EG' : 'Egypt',
-    'SV' : 'El Salvador',
-    'GQ' : 'Equatorial Guinea',
-    'ER' : 'Eritrea',
-    'EE' : 'Estonia',
-    'ET' : 'Ethiopia',
-    'FK' : 'Falkland Islands (Malvinas)',
-    'FO' : 'Faroe Islands',
-    'FJ' : 'Fiji',
-    'FI' : 'Finland',
-    'FR' : 'France',
-    'GF' : 'French Guiana',
-    'PF' : 'French Polynesia',
-    'TF' : 'French Southern Territories',
-    'GA' : 'Gabon',
-    'GM' : 'Gambia',
-    'GE' : 'Georgia',
-    'DE' : 'Germany',
-    'GH' : 'Ghana',
-    'GI' : 'Gibraltar',
-    'GR' : 'Greece',
-    'GL' : 'Greenland',
-    'GD' : 'Grenada',
-    'GP' : 'Guadeloupe',
-    'GU' : 'Guam',
-    'GT' : 'Guatemala',
-    'GG' : 'Guernsey',
-    'GN' : 'Guinea',
-    'GW' : 'Guinea-Bissau',
-    'GY' : 'Guyana',
-    'HT' : 'Haiti',
-    'HM' : 'Heard Island & Mcdonald Islands',
-    'VA' : 'Holy See (Vatican City State)',
-    'HN' : 'Honduras',
-    'HK' : 'Hong Kong',
-    'HU' : 'Hungary',
-    'IS' : 'Iceland',
-    'IN' : 'India',
-    'ID' : 'Indonesia',
-    'IR' : 'Iran, Islamic Republic Of',
-    'IQ' : 'Iraq',
-    'IE' : 'Ireland',
-    'IM' : 'Isle Of Man',
-    'IL' : 'Israel',
-    'IT' : 'Italy',
-    'JM' : 'Jamaica',
-    'JP' : 'Japan',
-    'JE' : 'Jersey',
-    'JO' : 'Jordan',
-    'KZ' : 'Kazakhstan',
-    'KE' : 'Kenya',
-    'KI' : 'Kiribati',
-    'KR' : 'Korea',
-    'KW' : 'Kuwait',
-    'KG' : 'Kyrgyzstan',
-    'LA' : 'Lao People\'s Democratic Republic',
-    'LV' : 'Latvia',
-    'LB' : 'Lebanon',
-    'LS' : 'Lesotho',
-    'LR' : 'Liberia',
-    'LY' : 'Libyan Arab Jamahiriya',
-    'LI' : 'Liechtenstein',
-    'LT' : 'Lithuania',
-    'LU' : 'Luxembourg',
-    'MO' : 'Macao',
-    'MK' : 'Macedonia',
-    'MG' : 'Madagascar',
-    'MW' : 'Malawi',
-    'MY' : 'Malaysia',
-    'MV' : 'Maldives',
-    'ML' : 'Mali',
-    'MT' : 'Malta',
-    'MH' : 'Marshall Islands',
-    'MQ' : 'Martinique',
-    'MR' : 'Mauritania',
-    'MU' : 'Mauritius',
-    'YT' : 'Mayotte',
-    'MX' : 'Mexico',
-    'FM' : 'Micronesia, Federated States Of',
-    'MD' : 'Moldova',
-    'MC' : 'Monaco',
-    'MN' : 'Mongolia',
-    'ME' : 'Montenegro',
-    'MS' : 'Montserrat',
-    'MA' : 'Morocco',
-    'MZ' : 'Mozambique',
-    'MM' : 'Myanmar',
-    'NA' : 'Namibia',
-    'NR' : 'Nauru',
-    'NP' : 'Nepal',
-    'NL' : 'Netherlands',
-    'AN' : 'Netherlands Antilles',
-    'NC' : 'New Caledonia',
-    'NZ' : 'New Zealand',
-    'NI' : 'Nicaragua',
-    'NE' : 'Niger',
-    'NG' : 'Nigeria',
-    'NU' : 'Niue',
-    'NF' : 'Norfolk Island',
-    'MP' : 'Northern Mariana Islands',
-    'NO' : 'Norway',
-    'OM' : 'Oman',
-    'PK' : 'Pakistan',
-    'PW' : 'Palau',
-    'PS' : 'Palestinian Territory, Occupied',
-    'PA' : 'Panama',
-    'PG' : 'Papua New Guinea',
-    'PY' : 'Paraguay',
-    'PE' : 'Peru',
-    'PH' : 'Philippines',
-    'PN' : 'Pitcairn',
-    'PL' : 'Poland',
-    'PT' : 'Portugal',
-    'PR' : 'Puerto Rico',
-    'QA' : 'Qatar',
-    'RE' : 'Reunion',
-    'RO' : 'Romania',
-    'RU' : 'Russian Federation',
-    'RW' : 'Rwanda',
-    'BL' : 'Saint Barthelemy',
-    'SH' : 'Saint Helena',
-    'KN' : 'Saint Kitts And Nevis',
-    'LC' : 'Saint Lucia',
-    'MF' : 'Saint Martin',
-    'PM' : 'Saint Pierre And Miquelon',
-    'VC' : 'Saint Vincent And Grenadines',
-    'WS' : 'Samoa',
-    'SM' : 'San Marino',
-    'ST' : 'Sao Tome And Principe',
-    'SA' : 'Saudi Arabia',
-    'SN' : 'Senegal',
-    'RS' : 'Serbia',
-    'SC' : 'Seychelles',
-    'SL' : 'Sierra Leone',
-    'SG' : 'Singapore',
-    'SK' : 'Slovakia',
-    'SI' : 'Slovenia',
-    'SB' : 'Solomon Islands',
-    'SO' : 'Somalia',
-    'ZA' : 'South Africa',
-    'GS' : 'South Georgia And Sandwich Isl.',
-    'ES' : 'Spain',
-    'LK' : 'Sri Lanka',
-    'SD' : 'Sudan',
-    'SR' : 'Suriname',
-    'SJ' : 'Svalbard And Jan Mayen',
-    'SZ' : 'Swaziland',
-    'SE' : 'Sweden',
-    'CH' : 'Switzerland',
-    'SY' : 'Syrian Arab Republic',
-    'TW' : 'Taiwan',
-    'TJ' : 'Tajikistan',
-    'TZ' : 'Tanzania',
-    'TH' : 'Thailand',
-    'TL' : 'Timor-Leste',
-    'TG' : 'Togo',
-    'TK' : 'Tokelau',
-    'TO' : 'Tonga',
-    'TT' : 'Trinidad And Tobago',
-    'TN' : 'Tunisia',
-    'TR' : 'Turkey',
-    'TM' : 'Turkmenistan',
-    'TC' : 'Turks And Caicos Islands',
-    'TV' : 'Tuvalu',
-    'UG' : 'Uganda',
-    'UA' : 'Ukraine',
-    'AE' : 'United Arab Emirates',
-    'GB' : 'United Kingdom',
-    'US' : 'United States',
-    'UM' : 'United States Outlying Islands',
-    'UY' : 'Uruguay',
-    'UZ' : 'Uzbekistan',
-    'VU' : 'Vanuatu',
-    'VE' : 'Venezuela',
-    'VN' : 'Viet Nam',
-    'VG' : 'Virgin Islands, British',
-    'VI' : 'Virgin Islands, U.S.',
-    'WF' : 'Wallis And Futuna',
-    'EH' : 'Western Sahara',
-    'YE' : 'Yemen',
-    'ZM' : 'Zambia',
-    'ZW' : 'Zimbabwe'
->>>>>>> aac51ddbd0e152ed000438d31e2fbd22bc6b7ff2
 };
