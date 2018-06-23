@@ -49,15 +49,20 @@ function draw() {
 };
 
 // BARCHART - START
-function setBarChart( Frame , nameConst ,colorfill, colorfill2,dataset ){
+function setBarChart( Frame , nameConst ,colorfill, colorfill2,dataset,max_time){
 
   var XrectConstrain = 0
 
   var margin = {top:10, right:0, bottom:20, left:50};
 
+  console.log("max_time")
+  console.log(max_time)
+  console.log("d3.max(dataset)")
+  console.log(d3.max(dataset))
 
   var yScale = d3.scaleLinear()
-      .domain([0, d3.max(dataset)])
+      //.domain([0, d3.max(dataset)])
+      .domain([0, max_time])
       .range([svgHeight - margin.top - margin.bottom,0]);
 
   var xScale = d3.scaleLinear()
@@ -97,7 +102,7 @@ function setBarChart( Frame , nameConst ,colorfill, colorfill2,dataset ){
           .append("rect")
           .style("fill",colorfill)
           .attr("y", function(d) {
-              return (yScale(d));
+              return (yScale(d,max_time));
           })
           .attr("x", function(d) {
               XrectConstrain = XrectConstrain + barWidth*1.8
@@ -112,7 +117,7 @@ function setBarChart( Frame , nameConst ,colorfill, colorfill2,dataset ){
 
 }
 
-function barchart(datasetC,datasetUC,country,ghi) {
+function barchart(datasetC,datasetUC,country,ghi,max_time_leisure,max_time_constraint) {
 
   //define the balise name
   k1 = k%3;
@@ -122,20 +127,15 @@ function barchart(datasetC,datasetUC,country,ghi) {
   var nameCountry= "countryName"+k1
 
   var ConsTop = 300
-  var ConsLeft = 650
+  var ConsLeft = 700
 
   var doc1 = document.getElementById(nameConst);
   doc1.style.position = "absolute";
-  //doc1.style.top = 800 + 80*k1 + 'px';
-  //doc1.style.left = 0 +'px';
   doc1.style.top = ConsTop + 25+100*k1 + 'px';
   doc1.style.left = ConsLeft +'px';
-  //doc1.innerHTML = "<strong> " + country + "&nbsp <p>" //+ ghi + "&nbsp" + "</strong> "
 
   var doc2 = document.getElementById(nameUnConst);
   doc2.style.position = "absolute";
-  //doc2.style.top = 800 + 80*k1 + 'px';
-  //doc2.style.left = 400 +'px';
   doc2.style.top = ConsTop + 25 +100*k1 + 'px';
   doc2.style.left = ConsLeft  + 350 +'px';
 
@@ -157,7 +157,6 @@ function barchart(datasetC,datasetUC,country,ghi) {
   FrameUnconst.style.top = ConsTop  + 'px';
   FrameUnconst.style.left = ConsLeft + 450 + svgWidth/4 +'px';
   FrameUnconst.style.textAlign = "left";
-  //messageU = "Unconstrained activities <p style="text-indent: 5em;" activity1 "
 
   nameTitleUC = 'titleUnconstraint'
   messageU = "<strong> Unconstrained activities </strong><p> "
@@ -193,8 +192,8 @@ function barchart(datasetC,datasetUC,country,ghi) {
 
   var colorfill = "DeepPink"
   var colorfill2 = "Aqua"
-  setBarChart( FrameConst,nameConst ,colorfill, colorfill2,datasetC)
-  setBarChart( FrameUnconst , nameUnConst , colorfill2, colorfill,datasetUC )
+  setBarChart( FrameConst,nameConst ,colorfill, colorfill2,datasetC,max_time_constraint)
+  setBarChart( FrameUnconst , nameUnConst , colorfill2, colorfill,datasetUC,max_time_leisure)
   k = k+1;
 }
  // BAR CHART STOP
@@ -222,7 +221,8 @@ function mouse_over() {
        .on("click", function(d){
          var countryName = isoCountries[d.countryCode.toUpperCase()];
 
-         var idx = 0
+         var idx = 0;
+         var max_time;
          var datasetUC = new Array();
          var datasetC = new Array();
          var data ;
@@ -241,7 +241,8 @@ function mouse_over() {
              datasetC.push(data)
              data = dataset[elt]["household_family"]
              datasetC.push(data)
-
+             max_time_leisure = dataset[elt]["total_leisure"]
+             max_time_constraint = dataset[elt]["total_constraint"]
            }
          }
 
@@ -249,7 +250,7 @@ function mouse_over() {
          console.log("data const")
          console.log(datasetC)
 
-         barchart(datasetC,datasetUC,countryName,d.GHI)
+         barchart(datasetC,datasetUC,countryName,d.GHI,max_time_leisure,max_time_constraint)
 
          console.log("data Uconst")
          console.log(datasetUC)
