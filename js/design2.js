@@ -139,7 +139,9 @@ function barchart(datasetC,datasetUC,country,ghi) {
   doc2.style.top = ConsTop + 25 +100*k1 + 'px';
   doc2.style.left = ConsLeft  + 350 +'px';
 
-
+  // TO DO : COMMENT
+  // Just for test the ghi is not correct in the map
+  ghi = 0.5
   var doc3 = document.getElementById(nameCountry);
   doc3.style.position = "absolute";
   //doc2.style.top = 800 + 80*k1 + 'px';
@@ -147,7 +149,7 @@ function barchart(datasetC,datasetUC,country,ghi) {
   doc3.style.top = ConsTop +25 +100*k1 + 'px';
   doc3.style.left = ConsLeft +'px';
   doc3.style.textAlign = "right"
-  doc3.innerHTML =  country
+  doc3.innerHTML =  country + "<p>" + "<strong>" + ghi + "</strong>"
 
   nameIdUC = 'graphUnconstraint'
   var FrameUnconst = document.getElementById(nameIdUC);
