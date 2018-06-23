@@ -8,11 +8,12 @@ var gender = "All"
 var day = "All"
 var filtre = "2000 All All"
 
-// for bar chart
+// BAR CHART START
 var k = 0
 var barWidth = 50
 var svgWidth = 400;
 var svgHeight = 100;
+// BAR CHART STOP
 
 // dictionnaire correspndance entre text filtre et texte table dans data
 // Quid de la gestion de plusieurs filtre -> plusieurs textes pour une table
@@ -47,7 +48,7 @@ function draw() {
       // });
 };
 
-
+// BARCHART - START
 function setBarChart( Frame ,message, nameConst ,colorfill, colorfill2,dataset ){
 
   var XrectConstrain = 0
@@ -113,10 +114,6 @@ function setBarChart( Frame ,message, nameConst ,colorfill, colorfill2,dataset )
 
 function barchart(datasetC,datasetUC,country) {
 
-
-  //var dataset1 = [50,20,50];
-  //Òvar dataset2 = [10,20,60];
-
   //define the balise name
   k1 = k%3;
 
@@ -171,6 +168,7 @@ function barchart(datasetC,datasetUC,country) {
   setBarChart( FrameUnconst,messageU , nameUnConst , colorfill2, colorfill,datasetUC )
   k = k+1;
 }
+ // BAR CHART STOP
 
 function mouse_over() {
     svg.selectAll(".europe")
@@ -191,6 +189,7 @@ function mouse_over() {
             }
 
        })
+       // BAR CHART START
        .on("click", function(d){
          var countryName = isoCountries[d.countryCode.toUpperCase()];
 
@@ -217,18 +216,19 @@ function mouse_over() {
            }
          }
 
-         //console.log(countryName)
-         //console.log("data const")
-         //console.log(datasetC)
-         
+         console.log(countryName)
+         console.log("data const")
+         console.log(datasetC)
+
          barchart(datasetC,datasetUC,countryName)
 
-         //console.log("data Uconst")
-         //console.log(datasetUC)
+         console.log("data Uconst")
+         console.log(datasetUC)
          //barchart(datasetC,datasetUC,countryName)
       });
     }
 
+// BAR CHART STOP
 function load_data(filtre) {
   var tabName = filtre_dic[filtre];
   d3.select("#h1").text(filtre); // change le titre avec le filtre choisi
