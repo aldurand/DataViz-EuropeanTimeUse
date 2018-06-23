@@ -10,7 +10,7 @@ var filtre = "2000 All All"
 
 // BAR CHART START
 var k = 0
-var barWidth = 50
+var barWidth = 50;
 var svgWidth = 400;
 var svgHeight = 100;
 // BAR CHART STOP
@@ -49,7 +49,7 @@ function draw() {
 };
 
 // BARCHART - START
-function setBarChart( Frame ,message, nameConst ,colorfill, colorfill2,dataset ){
+function setBarChart( Frame , nameConst ,colorfill, colorfill2,dataset ){
 
   var XrectConstrain = 0
 
@@ -63,9 +63,9 @@ function setBarChart( Frame ,message, nameConst ,colorfill, colorfill2,dataset )
   var xScale = d3.scaleLinear()
           .range([0, svgWidth - margin.right - margin.left]);
 
- if ( k == 0 ) {
-   Frame.innerHTML += message ;
-  }
+ //if ( k == 0 ) {
+ //   Frame.innerHTML += message ;
+ //  }
 
   if (k>2){
 
@@ -112,13 +112,14 @@ function setBarChart( Frame ,message, nameConst ,colorfill, colorfill2,dataset )
 
 }
 
-function barchart(datasetC,datasetUC,country) {
+function barchart(datasetC,datasetUC,country,ghi) {
 
   //define the balise name
   k1 = k%3;
 
   var nameConst = "comparisonConst"+k1
   var nameUnConst= "comparisonUnConst"+k1
+  var nameCountry= "countryName"+k1
 
   var ConsTop = 300
   var ConsLeft = 650
@@ -127,45 +128,71 @@ function barchart(datasetC,datasetUC,country) {
   doc1.style.position = "absolute";
   //doc1.style.top = 800 + 80*k1 + 'px';
   //doc1.style.left = 0 +'px';
-  doc1.style.top = ConsTop + 100*k1 + 'px';
+  doc1.style.top = ConsTop + 25+100*k1 + 'px';
   doc1.style.left = ConsLeft +'px';
-  doc1.innerHTML = "<strong> " + country + "</strong> "
+  //doc1.innerHTML = "<strong> " + country + "&nbsp <p>" //+ ghi + "&nbsp" + "</strong> "
 
   var doc2 = document.getElementById(nameUnConst);
   doc2.style.position = "absolute";
   //doc2.style.top = 800 + 80*k1 + 'px';
   //doc2.style.left = 400 +'px';
-  doc2.style.top = ConsTop +25 +100*k1 + 'px';
-  doc2.style.left = ConsLeft + 350 +'px';
+  doc2.style.top = ConsTop + 25 +100*k1 + 'px';
+  doc2.style.left = ConsLeft  + 350 +'px';
 
-  nameIdC = 'titleUnconstraint'
-  var FrameUnconst = document.getElementById(nameIdC);
+
+  var doc3 = document.getElementById(nameCountry);
+  doc3.style.position = "absolute";
+  //doc2.style.top = 800 + 80*k1 + 'px';
+  //doc2.style.left = 400 +'px';
+  doc3.style.top = ConsTop +25 +100*k1 + 'px';
+  doc3.style.left = ConsLeft +'px';
+  doc3.style.textAlign = "right"
+  doc3.innerHTML =  country
+
+  nameIdUC = 'graphUnconstraint'
+  var FrameUnconst = document.getElementById(nameIdUC);
   FrameUnconst.style.position = "absolute";
-  FrameUnconst.style.top = ConsTop - 50 + 'px';
-  FrameUnconst.style.left = ConsLeft + 350 + svgWidth/4 +'px';
+  FrameUnconst.style.top = ConsTop  + 'px';
+  FrameUnconst.style.left = ConsLeft + 450 + svgWidth/4 +'px';
   FrameUnconst.style.textAlign = "left";
   //messageU = "Unconstrained activities <p style="text-indent: 5em;" activity1 "
+
+  nameTitleUC = 'titleUnconstraint'
   messageU = "<strong> Unconstrained activities </strong><p> "
             +"Media  &nbsp &nbsp &nbsp &nbsp  Sport &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp Social"
+  var TitleUnconst = document.getElementById(nameTitleUC);
+  TitleUnconst.style.position = "absolute";
+  TitleUnconst.style.top = ConsTop - 50 + 'px';
+  TitleUnconst.style.left = ConsLeft + 350 + svgWidth/4 +'px';
+  TitleUnconst.style.textAlign = "left";
+  TitleUnconst.innerHTML = messageU
+
+
+  nameIdC = 'graphConstraint'
+  var FrameConst = document.getElementById(nameIdC);
+  FrameConst.style.position = "absolute";
+  FrameConst.style.top = ConsTop  + 'px';
+  FrameConst.style.left = ConsLeft - 100 + svgWidth/4 +'px';
+  FrameConst.style.textAlign = "left"
 
 
   //FrameUnconst.innerHTML += 'Unconstrained';
-
-  nameIdUC = 'titleConstraint'
-  var FrameConst = document.getElementById(nameIdUC);
-  FrameConst.style.position = "absolute";
-  FrameConst.style.top = ConsTop - 50 + 'px';
-  FrameConst.style.left = ConsLeft - 50 + svgWidth/4 +'px';
-  FrameConst.style.textAlign = "left"
-
+  nameTitleC = 'titleConstraint'
   //FrameConst.innerHTML += 'Constrained';
   messageC = "<strong> Constrained activities </strong><p> "
-            +"&nbsp &nbsp &nbsp &nbsp &nbsp Basic  &nbsp &nbsp &nbsp  Professional &nbsp &nbsp &nbsp House"
+            +"Basic  &nbsp &nbsp &nbsp  Professional &nbsp &nbsp &nbsp House"
+  var TitleConst = document.getElementById(nameTitleC);
+  TitleConst.style.position = "absolute";
+  TitleConst.style.top = ConsTop - 50 + 'px';
+  TitleConst.style.left = ConsLeft  + svgWidth/4 +'px';
+  TitleConst.style.textAlign = "left";
+  TitleConst.innerHTML = messageC
+
 
   var colorfill = "DeepPink"
   var colorfill2 = "Aqua"
-  setBarChart( FrameConst,messageC,nameConst ,colorfill, colorfill2,datasetC)
-  setBarChart( FrameUnconst,messageU , nameUnConst , colorfill2, colorfill,datasetUC )
+  setBarChart( FrameConst,nameConst ,colorfill, colorfill2,datasetC)
+  setBarChart( FrameUnconst , nameUnConst , colorfill2, colorfill,datasetUC )
   k = k+1;
 }
  // BAR CHART STOP
@@ -220,7 +247,7 @@ function mouse_over() {
          console.log("data const")
          console.log(datasetC)
 
-         barchart(datasetC,datasetUC,countryName)
+         barchart(datasetC,datasetUC,countryName,d.GHI)
 
          console.log("data Uconst")
          console.log(datasetUC)
@@ -367,7 +394,7 @@ var isoCountries = {
     'BM' : 'Bermuda',
     'BT' : 'Bhutan',
     'BO' : 'Bolivia',
-    'BA' : 'Bosnia And Herzegovina',
+    'BA' : 'Bosnia',
     'BW' : 'Botswana',
     'BV' : 'Bouvet Island',
     'BR' : 'Brazil',
@@ -397,7 +424,7 @@ var isoCountries = {
     'HR' : 'Croatia',
     'CU' : 'Cuba',
     'CY' : 'Cyprus',
-    'CZ' : 'Czech Republic',
+    'CZ' : 'Czech Rep',
     'DK' : 'Denmark',
     'DJ' : 'Djibouti',
     'DM' : 'Dominica',
