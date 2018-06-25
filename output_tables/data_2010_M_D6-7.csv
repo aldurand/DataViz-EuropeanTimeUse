@@ -1,7 +1,7 @@
 country,country_code,basic_needs,pro_study,household_family,total_constraint,leisure_media,leisure_sports_outdoors,leisure_social_meetings,total_leisure,GHI
 Belgium,BE,1426.0,189.0,334.0,1949.0,300.0,36.0,589.0,925.0,0.474602
 Bulgaria,BG,,,,0.0,,,,0.0,
-Germany (until 1990 former territory of the FRG),DE,1416.0,188.0,325.0,1929.0,290.0,40.0,610.0,940.0,0.487299
+Germany,DE,1416.0,188.0,325.0,1929.0,290.0,40.0,610.0,940.0,0.487299
 Estonia,EE,1408.0,255.0,385.0,2048.0,281.0,38.0,493.0,812.0,0.396484
 Greece,EL,1487.0,280.0,197.0,1964.0,282.0,41.0,590.0,913.0,0.464868
 Spain,ES,1491.0,260.0,288.0,2039.0,248.0,59.0,526.0,833.0,0.408534
