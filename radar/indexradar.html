@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="RadarChart">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="container" ng-controller="MainCtrl as radar">
+
+  <!-- main content -->
+  <div class="main container">
+    <h2>
+      Time use distribution in Europe
+    </h2>
+
+    <!-- visualization -->
+    <div class="visualization col-xs-7">
+      <p>Select example:
+        <select ng-options="example for example in radar.examples" ng-model="radar.exampleSelected" ng-change="radar.selectExample(radar.exampleSelected)"></select>
+      </p>
+      <div class="visualization">
+        <radar csv="radar.csv" config="radar.config"></radar>
+      </div>
+    </div>
+
+  <!-- scripts -->
+  <script src="http://code.angularjs.org/1.3.5/angular.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="appradar.js"></script>
+  <script src="radarradar.js"></script>
+  <script src="radarDrawradar.js"></script>
+  <script>
+    // Hack to make this example display correctly in an iframe on bl.ocks.org
+    d3.select(self.frameElement).style("height", "1000px");
+  </script>
+</body>
+
+</html>

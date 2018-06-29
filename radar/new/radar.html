@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+    <script type="text/javascript" src="js/design2.js"></script>
+    <script src="js/jquery-2.2.4.js"></script>
+    <script src="js/d3.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" />
+
+    <link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body class="container">
+    <!-- Filters -->
+
+    <!-- main content -->
+    <div class="main container">
+      <h2>Mean time use in Europe</h2>
+
+      <!-- main content -->
+    <div id="Radar" class="main container">
+      <!-- visualization -->
+      <!--<div class="visualization col-xs-7">-->
+
+        <div class="visualization">
+          <radar csv="radar.csv" config="radar.config"></radar>
+        </div>
+    </div>
+    <!-- scripts -->
+    <script src="radar.js"></script>
+    <script src="radarDraw.js"></script>
+    <script>
+    // Hack to make this example display correctly in an iframe on bl.ocks.org
+    d3.select(self.frameElement).style("height", "1000px");
+  </script>
+</body>
