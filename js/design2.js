@@ -251,7 +251,7 @@ function load_data(filtre) {
   d3.select("h3").text(activity_decoded + " - " + selected_filters_to_display);
   
 
-  d3.csv("./output_tables_NEW/" + tabName)
+  d3.csv("./output_tables/" + tabName)
   .row((d,i) => {
     return {
       country: d.country,
@@ -390,7 +390,7 @@ function draw_barcharts(keys, tabName, svg_barchart, svg_barchart_name, activiti
 
   var countries_list = [];
   
-  d3.csv("./output_tables_NEW/"+tabName, function(data) {
+  d3.csv("./output_tables/"+tabName, function(data) {
     data.forEach(function(d) {
       countries_list.push(d.country);
       d.basic_needs = +d.basic_needs;
