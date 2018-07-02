@@ -1,3 +1,4 @@
+
 body {
     position: relative;
     padding-top: 0px;
@@ -97,15 +98,28 @@ body {
   
   #map_svg{
       position: absolute;
-      left:0px;
+      left:30px;
       top:150px;
   }
   
   #svg2{
       position: absolute;
-      left:0px;
+      left:30px;
       top:150px;
   }
+
+
+  #svg_barchart_C{
+    position: absolute;
+    right:290px;
+    top:200px;
+}
+
+#svg_barchart_L{
+    position: absolute;
+    right:0px;
+    top:200px;
+}
   
   
   path {
@@ -166,6 +180,7 @@ body {
   }
   
   .axis text {
+      fill: #000000;
       font-family: sans-serif;
       font-size: 10px;
   }
