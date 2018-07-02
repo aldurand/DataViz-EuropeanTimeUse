@@ -421,8 +421,8 @@ function draw_barcharts(keys, tabName, svg_barchart, svg_barchart_name, activiti
 
   var all_subgroup_act = ["basic_needs", "pro_study", "household_family", "leisure_media", "leisure_sports_outdoors", "leisure_social_meetings"]
   var y = d3.scaleLinear()
-    //.domain([0, d3.max(data, function(d) { return d3.max(all_subgroup_act, function(act) { return d[act]; }); })]).nice()
-    .domain([0, 1600]).nice()
+    .domain([0, d3.max(data, function(d) { return d3.max(all_subgroup_act, function(act) { return d[act]; }); })]).nice()
+    //.domain([0, 1600]).nice()  //the maximum over all the table is never higher than 1'600 hours
     .rangeRound([height_bc, 0]);
 
 
