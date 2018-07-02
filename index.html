@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Dropdown Menu for the differents filters (Year, Gender, DayofWeek & Activity) -->
+    <ul>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Year</a>
+        <div class="dropdown-content" id="year">
+          <a onclick="changeYear(this)">2000</a>
+          <a onclick="changeYear(this)">2010</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Gender</a>
+        <div class="dropdown-content" id="gender">
+          <a onclick="changeGender(this)">Any Gender</a>
+          <a onclick="changeGender(this)">Female</a>
+          <a onclick="changeGender(this)">Male</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Days</a>
+        <div class="dropdown-content" id="day">
+          <a onclick="changeDay(this)">Monday-Sunday</a>
+          <a onclick="changeDay(this)">Monday-Friday</a>
+          <a onclick="changeDay(this)">Saturday-Sunday</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Activity</a>
+        <div class="dropdown-content" id="day">
+          <option value="" disabled="disabled">Constraint Activities :</option>
+          <a onclick="changeAct(this)">Basic Needs</a>
+          <a onclick="changeAct(this)">Professional & Study</a>
+          <a onclick="changeAct(this)">Household & Family</a>
+          <a onclick="changeAct(this)">Total Constraint Time</a>
+          <option value="" disabled="disabled">Leisure Activities :</option>
+          <a onclick="changeAct(this)">Media (tv, internet, ...)</a>
+          <a onclick="changeAct(this)">Sports & Outdoors</a>
+          <a onclick="changeAct(this)">Social & Meetings</a>
+          <a onclick="changeAct(this)">Total Leisure Time</a>
+          <option value="" disabled="disabled">Gross Happiness Index :</option>
+          <a onclick="changeAct(this)">GHI</a>
+        </div>
+      </li>
+    </ul>
+
+    <!-- Title and subtitles-->
+    <h1 class="text-center">Europe Happiness Map</h1>
+    <h2 class="text-center"></h2>
+    <h3 class="text-center"></h3>
+
+    <!-- Europe Map -->
+    <svg id="legend-svg"></svg>
+    <svg id="map_svg" class="europe"></svg>
+    
+    <!-- Bar Charts -->
+    <svg id="svg_barchart_C"></svg>
+    <svg id="svg_barchart_L"></svg>
+
+    <!-- Country Name + Value when hover on a country -->
+    <div id="info-container">
+        <div id="country"></div>
+        <div id="GHI"></div>
+    </div>
+
+
+    <!-- SCRIPTS-->
+    <script type="text/javascript" src="js/design.js"></script>
+    <script src="js/jquery-2.2.4.js"></script>
+    <script src="js/d3.js"></script>
+</body>
+
